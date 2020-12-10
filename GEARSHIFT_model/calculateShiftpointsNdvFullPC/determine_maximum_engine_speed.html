@@ -118,7 +118,7 @@
         <span style="color: #BA2121">&quot;EngineSpeedAtGearAtMaxRequiredSpeed&quot;</span>,
         <span style="color: #BA2121">&quot;EngineSpeedAtGearAtMaxVehicleSpeed&quot;</span>,
     ],
-    input_domain<span style="color: #666666">=</span>check_gear_max_vehicle_speed,
+    input_domain<span style="color: #666666">=</span>_check_gear_max_vehicle_speed,
 )
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">determine_maximum_engine_speed</span>(
     EngineSpeedLimitVMax,
@@ -136,6 +136,7 @@
 <span style="color: #BA2121; font-style: italic">    Determine maximum engine speed (2g)</span>
 
 <span style="color: #BA2121; font-style: italic">    n_max1 = n_95_high</span>
+
 <span style="color: #BA2121; font-style: italic">    If n_95_high cannot be determined</span>
 <span style="color: #BA2121; font-style: italic">    because the engine speed is limited to a lower value n_lim for all gears</span>
 <span style="color: #BA2121; font-style: italic">    and the corresponding full load power is higher than 95 per cent of rated power,</span>
@@ -148,17 +149,19 @@
 <span style="color: #BA2121; font-style: italic">    :type EngineSpeedLimitVMax: float</span>
 
 <span style="color: #BA2121; font-style: italic">    :param Max95EngineSpeedFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The maximum engine speed where 95 percent of the rated power is</span>
-<span style="color: #BA2121; font-style: italic">        reached from the full power curve</span>
+<span style="color: #BA2121; font-style: italic">         Annex 2 (2g) n_max1 = n_95_high adjusted</span>
+<span style="color: #BA2121; font-style: italic">         If n_95_high cannot be determined because the engine speed is limited to</span>
+<span style="color: #BA2121; font-style: italic">         a lower value n_lim for all gears and the corresponding full load power</span>
+<span style="color: #BA2121; font-style: italic">         is higher than 95 per cent of rated power, n_95_high shall be set to n_lim.</span>
 <span style="color: #BA2121; font-style: italic">    :type Max95EngineSpeedFinal: float</span>
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurveEngineSpeeds:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
-<span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurvePowers:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve powers</span>
-<span style="color: #BA2121; font-style: italic">    :type PowerCurvePowers: array</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurvePowers: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param RatedEnginePowerF:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the rated engine power corrected if is necessary</span>
@@ -168,15 +171,15 @@
 <span style="color: #BA2121; font-style: italic">        The ratio obtained by dividing the engine speed n by the vehicle speed v</span>
 <span style="color: #BA2121; font-style: italic">        for each gear i form 1 to ng after apply the exclusion of first gear if</span>
 <span style="color: #BA2121; font-style: italic">        is necessary.</span>
-<span style="color: #BA2121; font-style: italic">    :type NdvRatios: array</span>
+<span style="color: #BA2121; font-style: italic">    :type NdvRatios: numpy.array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return GearAtMaxVehicleSpeed:</span>
+<span style="color: #BA2121; font-style: italic">    :param GearAtMaxVehicleSpeed:</span>
 <span style="color: #BA2121; font-style: italic">        The gear that have the maximum vehicle speed</span>
-<span style="color: #BA2121; font-style: italic">    :rtype GearAtMaxVehicleSpeed: float</span>
+<span style="color: #BA2121; font-style: italic">    :type GearAtMaxVehicleSpeed: float</span>
 
 <span style="color: #BA2121; font-style: italic">    :param RequiredVehicleSpeeds:</span>
 <span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param MaxVehicleSpeed:</span>
 <span style="color: #BA2121; font-style: italic">        The maximum vehicle speed</span>
@@ -185,27 +188,22 @@
 <span style="color: #BA2121; font-style: italic">    :param NoOfGearsFinal:</span>
 <span style="color: #BA2121; font-style: italic">        The number of forward gears after apply the exclusion of first gear</span>
 <span style="color: #BA2121; font-style: italic">        if is necessary.</span>
-<span style="color: #BA2121; font-style: italic">    :type NoOfGearsFinal: integer</span>
+<span style="color: #BA2121; font-style: italic">    :type NoOfGearsFinal: int</span>
 
-<span style="color: #BA2121; font-style: italic">    :return MaxEngineSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The maximum engine speed</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MaxEngineSpeed: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return GearAtMaxVehicleSpeedFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The gear that have the maximum vehicle speed after check required engine speeds</span>
-<span style="color: #BA2121; font-style: italic">    :rtype GearAtMaxVehicleSpeedFinal: integer</span>
-
-<span style="color: #BA2121; font-style: italic">    :return MaxVehicleSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The maximum vehicle speed after check required engine speeds</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MaxVehicleSpeed: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return EngineSpeedAtGearAtMaxRequiredSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The engine speed at gear maximum required speed</span>
-<span style="color: #BA2121; font-style: italic">    :rtype EngineSpeedAtGearAtMaxRequiredSpeed: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return EngineSpeedAtGearAtMaxVehicleSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The engine speed at gear at maximum vehicle speed</span>
-<span style="color: #BA2121; font-style: italic">    :rtype EngineSpeedAtGearAtMaxVehicleSpeed: float</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - MaxEngineSpeed (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The maximum engine speed</span>
+<span style="color: #BA2121; font-style: italic">        - GearAtMaxVehicleSpeedFinal (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2i) ng_vmax</span>
+<span style="color: #BA2121; font-style: italic">            The gear in which the maximum vehicle speed is reached.</span>
+<span style="color: #BA2121; font-style: italic">        - MaxVehicleSpeedFinal (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2g, 2i) v_max,vehicle</span>
+<span style="color: #BA2121; font-style: italic">            The maximum vehicle speed reachable</span>
+<span style="color: #BA2121; font-style: italic">            using the gear in which the maximum vehicle speed can be reached.</span>
+<span style="color: #BA2121; font-style: italic">        - EngineSpeedAtGearAtMaxRequiredSpeed (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The engine speed at gear maximum required speed</span>
+<span style="color: #BA2121; font-style: italic">        - EngineSpeedAtGearAtMaxVehicleSpeed (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The engine speed at gear at maximum vehicle speed</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     NoOfGears <span style="color: #666666">=</span> NoOfGearsFinal
 

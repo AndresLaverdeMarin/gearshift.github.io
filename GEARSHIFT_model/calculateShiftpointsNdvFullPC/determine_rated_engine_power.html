@@ -132,7 +132,7 @@
 <span style="color: #BA2121; font-style: italic">        For backward compatibility this parameter may still be used to override the</span>
 <span style="color: #BA2121; font-style: italic">        value calculated from FullPowerCurve. Set RatedEnginePower and RatedEngineSpeed</span>
 <span style="color: #BA2121; font-style: italic">        to 0 to use the calculated values.</span>
-<span style="color: #BA2121; font-style: italic">    :type RatedEnginePower: array</span>
+<span style="color: #BA2121; font-style: italic">    :type RatedEnginePower: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param RatedEngineSpeed:</span>
 <span style="color: #BA2121; font-style: italic">        Annex 2 (2b) n_rated. This is a legacy parameter used until regulation GRPE-75-23.</span>
@@ -146,23 +146,22 @@
 <span style="color: #BA2121; font-style: italic">        For backward compatibility this parameter may still be used to override the value</span>
 <span style="color: #BA2121; font-style: italic">        calculated from FullPowerCurve. Set RatedEnginePower and RatedEngineSpeed to 0</span>
 <span style="color: #BA2121; font-style: italic">        to use the calculated values.</span>
-<span style="color: #BA2121; font-style: italic">    :type RatedEngineSpeed: array</span>
+<span style="color: #BA2121; font-style: italic">    :type RatedEngineSpeed: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurvePowers:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve powers</span>
-<span style="color: #BA2121; font-style: italic">    :type PowerCurvePowers: array</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurvePowers: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurveEngineSpeeds:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
-<span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: numpy.array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return RatedEnginePowerF:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the rated engine power corrected if is necessary</span>
-<span style="color: #BA2121; font-style: italic">    :rtype RatedEnginePowerF: float</span>
 
-<span style="color: #BA2121; font-style: italic">    :return RatedEngineSpeedF:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the rated engine speed corrected if is necessary</span>
-<span style="color: #BA2121; font-style: italic">    :rtype RatedEngineSpeedF: float</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - RatedEnginePowerF (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the rated engine power corrected if is necessary</span>
+<span style="color: #BA2121; font-style: italic">        - RatedEngineSpeedF (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the rated engine speed corrected if is necessary</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">if</span> (RatedEnginePower <span style="color: #AA22FF; font-weight: bold">is</span> <span style="color: #008000; font-weight: bold">None</span> <span style="color: #AA22FF; font-weight: bold">or</span> RatedEnginePower <span style="color: #666666">&lt;=</span> <span style="color: #666666">0</span>) <span style="color: #AA22FF; font-weight: bold">and</span> (
         RatedEngineSpeed <span style="color: #AA22FF; font-weight: bold">is</span> <span style="color: #008000; font-weight: bold">None</span> <span style="color: #AA22FF; font-weight: bold">or</span> RatedEngineSpeed <span style="color: #666666">&lt;=</span> <span style="color: #666666">0</span>

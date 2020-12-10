@@ -128,9 +128,11 @@
 <span style="color: #BA2121; font-style: italic">        i.e. without the engine speed increments required by Annex 2 (3.3)</span>
 <span style="color: #BA2121; font-style: italic">    :type AvailablePowers: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return requiredPowersF:</span>
-<span style="color: #BA2121; font-style: italic">        The required powers for each time.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype requiredPowersF: array</span>
+<span style="color: #BA2121; font-style: italic">    :param requiredPowersF:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.1) P_required,j</span>
+<span style="color: #BA2121; font-style: italic">        The power required to overcome driving resistance and to accelerate</span>
+<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">    :type requiredPowersF: array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param TraceTimesCount:</span>
 <span style="color: #BA2121; font-style: italic">        The length of trace times re-sampled in 1Hz</span>
@@ -141,14 +143,12 @@
 <span style="color: #BA2121; font-style: italic">        if is necessary.</span>
 <span style="color: #BA2121; font-style: italic">    :type NoOfGearsFinal: integer</span>
 
-<span style="color: #BA2121; font-style: italic">    :return PossibleGearsByEngineSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The possible gear that can be used for each second.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PossibleGearsByEngineSpeed: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PossibleGearsByAvailablePowersWithTotalSafetyMargin:</span>
-<span style="color: #BA2121; font-style: italic">        The possible gears by available powers with total safety margin</span>
-<span style="color: #BA2121; font-style: italic">        (following section 3.5 of Sub-Annex 2)</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PossibleGearsByAvailablePowersWithTotalSafetyMargin: boolean array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - PossibleGearsByEngineSpeed (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The possible gear that can be used for each second.</span>
+<span style="color: #BA2121; font-style: italic">        - PossibleGearsByAvailablePowersWithTotalSafetyMargin (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The possible gears by available powers with total safety margin</span>
+<span style="color: #BA2121; font-style: italic">            (following section 3.5 of Sub-Annex 2)</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     PossibleGearsByAvailablePowersWithTotalSafetyMargin <span style="color: #666666">=</span> np<span style="color: #666666">.</span>empty(
         (TraceTimesCount, NoOfGearsFinal)
@@ -170,7 +170,7 @@
 
     m, n <span style="color: #666666">=</span> np<span style="color: #666666">.</span>shape(AvailablePowers)
 
-    linearInd <span style="color: #666666">=</span> sub2ind(np<span style="color: #666666">.</span>shape(AvailablePowers), I, np<span style="color: #666666">.</span>arange(<span style="color: #666666">0</span>, m))
+    linearInd <span style="color: #666666">=</span> _sub2ind(np<span style="color: #666666">.</span>shape(AvailablePowers), I, np<span style="color: #666666">.</span>arange(<span style="color: #666666">0</span>, m))
 
     PossibleGearsByAvailablePowersWithTotalSafetyMargin[
         np<span style="color: #666666">.</span>unravel_index(

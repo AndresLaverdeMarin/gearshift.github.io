@@ -117,9 +117,6 @@
 <span style="color: #BA2121; font-style: italic">    Determine the maximum engine speed where 95 percent of the rated power is</span>
 <span style="color: #BA2121; font-style: italic">    reached from the full power curve</span>
 
-<span style="color: #BA2121; font-style: italic">    .. note::</span>
-<span style="color: #BA2121; font-style: italic">    This will only be done if this value was not set as input parameter</span>
-
 <span style="color: #BA2121; font-style: italic">    :param Max95EngineSpeed:</span>
 <span style="color: #BA2121; font-style: italic">        Annex 2 (2g) n_max1 = n_95_high</span>
 <span style="color: #BA2121; font-style: italic">        The maximum engine speed where 95 per cent of rated power is reached.</span>
@@ -135,10 +132,14 @@
 <span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
 <span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return Max95EngineSpeedFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The maximum engine speed where 95 percent of the rated power is</span>
-<span style="color: #BA2121; font-style: italic">        reached from the full power curve</span>
-<span style="color: #BA2121; font-style: italic">    :rtype Max95EngineSpeedFinal: float</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - Max95EngineSpeedFinal (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2g) n_max1 = n_95_high adjusted.</span>
+<span style="color: #BA2121; font-style: italic">            If n_95_high cannot be determined because the engine speed is limited to</span>
+<span style="color: #BA2121; font-style: italic">            a lower value n_lim for all gears and the corresponding full load power</span>
+<span style="color: #BA2121; font-style: italic">            is higher than 95 per cent of rated power, n_95_high shall be set to n_lim.</span>
+
+<span style="color: #BA2121; font-style: italic">    .. note:: This will only be done if this value was not set as input parameter.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">if</span> Max95EngineSpeed <span style="color: #666666">&lt;=</span> <span style="color: #666666">0</span> <span style="color: #AA22FF; font-weight: bold">or</span> np<span style="color: #666666">.</span>isnan(Max95EngineSpeed):
         PowerCurvePowerMax95 <span style="color: #666666">=</span> <span style="color: #666666">0.95</span> <span style="color: #666666">*</span> np<span style="color: #666666">.</span>max(PowerCurvePowers)

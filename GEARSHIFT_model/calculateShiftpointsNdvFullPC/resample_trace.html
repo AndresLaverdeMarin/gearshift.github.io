@@ -116,8 +116,6 @@
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">resample_trace</span>(TraceTimesInput, RequiredVehicleSpeedsInput):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    Re-sample the trace in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    If the trace was provided with higher sample rate, this may lead to data</span>
-<span style="color: #BA2121; font-style: italic">    loss.</span>
 
 <span style="color: #BA2121; font-style: italic">    :param TraceTimesInput:</span>
 <span style="color: #BA2121; font-style: italic">        Times for each vehicle speed required</span>
@@ -127,17 +125,15 @@
 <span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle.</span>
 <span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeedsInput: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return TraceTimes:</span>
-<span style="color: #BA2121; font-style: italic">        Times for each vehicle speed required re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :rtype TraceTimes: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - TraceTimes (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Times for each vehicle speed required re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">        - RequiredVehicleSpeeds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">        - TraceTimesCount (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            The length of trace times re-sampled in 1Hz</span>
 
-<span style="color: #BA2121; font-style: italic">    :return RequiredVehicleSpeeds:</span>
-<span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :rtype RequiredVehicleSpeeds: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return TraceTimesCount:</span>
-<span style="color: #BA2121; font-style: italic">        The length of trace times re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :rtype TraceTimesCount: integer</span>
+<span style="color: #BA2121; font-style: italic">    .. note:: If the trace was provided with higher sample rate, this may lead to data loss.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> interp1d
 

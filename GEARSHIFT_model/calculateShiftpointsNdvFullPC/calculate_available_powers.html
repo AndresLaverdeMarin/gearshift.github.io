@@ -124,7 +124,6 @@
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    Calculate available powers (3.4)</span>
 
-<span style="color: #BA2121; font-style: italic">    .. note::</span>
 <span style="color: #BA2121; font-style: italic">    Additional safety margins defined together with the power curve take precedence</span>
 <span style="color: #BA2121; font-style: italic">    over the legacy additional safety margins exponentially decaying from start to</span>
 <span style="color: #BA2121; font-style: italic">    end engine speed</span>
@@ -133,10 +132,14 @@
 <span style="color: #BA2121; font-style: italic">        Boolean that define if the additional save margins are present</span>
 <span style="color: #BA2121; font-style: italic">    :type DefinedPowerCurveAdditionalSafetyMargins: boolean</span>
 
-<span style="color: #BA2121; font-style: italic">    :return RequiredEngineSpeeds:</span>
-<span style="color: #BA2121; font-style: italic">        The engine speeds required for each gear i from 1 to ng and</span>
+<span style="color: #BA2121; font-style: italic">    :param RequiredEngineSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.2) n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        The engine speeds required</span>
+<span style="color: #BA2121; font-style: italic">        for each gear i from 1 to ng and</span>
 <span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype RequiredEngineSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">        Note that this are the uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        ie without the increments required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredEngineSpeeds: array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param IdlingEngineSpeed:</span>
 <span style="color: #BA2121; font-style: italic">        Annex 2 (2c) n_idle. The idling speed.</span>
@@ -145,14 +148,6 @@
 <span style="color: #BA2121; font-style: italic">    :param PowerCurveEngineSpeeds:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
 <span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :param SafetyMargin:</span>
-<span style="color: #BA2121; font-style: italic">        Annex 2 (3.4) SM</span>
-<span style="color: #BA2121; font-style: italic">        The safety margin is accounting for the difference between the</span>
-<span style="color: #BA2121; font-style: italic">        stationary full load condition power curve and the power available</span>
-<span style="color: #BA2121; font-style: italic">        during transition conditions.</span>
-<span style="color: #BA2121; font-style: italic">        SM is set to 10 per cent.</span>
-<span style="color: #BA2121; font-style: italic">    :type SafetyMargin: float</span>
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurveASM:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve additional save margin</span>
@@ -172,21 +167,24 @@
 <span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
 <span style="color: #BA2121; font-style: italic">    :type InitialRequiredEngineSpeeds: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return AvailablePowers:</span>
-<span style="color: #BA2121; font-style: italic">        Annex 2 (3.4) P_available_i,j</span>
-<span style="color: #BA2121; font-style: italic">        The power available for each gear i from 1 to ng and for each second j</span>
-<span style="color: #BA2121; font-style: italic">        of the cycle trace.</span>
-<span style="color: #BA2121; font-style: italic">        Note that this power values are determined from uncorrected values n_i,j</span>
-<span style="color: #BA2121; font-style: italic">        i.e. without the engine speed increments required by Annex 2 (3.3)</span>
-<span style="color: #BA2121; font-style: italic">    :rtype AvailablePowers: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InitialAvailablePowers:</span>
-<span style="color: #BA2121; font-style: italic">        Annex 2 (3.4) P_available_i,j (initials)</span>
-<span style="color: #BA2121; font-style: italic">        The power available for each gear i from 1 to ng and for each second j</span>
-<span style="color: #BA2121; font-style: italic">        of the cycle trace.</span>
-<span style="color: #BA2121; font-style: italic">        Note that this power values are determined from uncorrected values n_i,j</span>
-<span style="color: #BA2121; font-style: italic">        i.e. without the engine speed increments required by Annex 2 (3.3)</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InitialAvailablePowers: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - SafetyMargin (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (3.4) SM. The safety margin is accounting for the difference between the</span>
+<span style="color: #BA2121; font-style: italic">            stationary full load condition power curve and the power available</span>
+<span style="color: #BA2121; font-style: italic">            during transition conditions.</span>
+<span style="color: #BA2121; font-style: italic">            SM is set to 10 per cent.</span>
+<span style="color: #BA2121; font-style: italic">        - AvailablePowers (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (3.4) P_available_i,j</span>
+<span style="color: #BA2121; font-style: italic">            The power available for each gear i from 1 to ng and for each second j</span>
+<span style="color: #BA2121; font-style: italic">            of the cycle trace. Note that this power values are determined from</span>
+<span style="color: #BA2121; font-style: italic">            uncorrected values n_i,j i.e. without the engine speed increments</span>
+<span style="color: #BA2121; font-style: italic">            required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">        - InitialAvailablePowers (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (3.4) P_available_i,j (initials)</span>
+<span style="color: #BA2121; font-style: italic">            The power available for each gear i from 1 to ng and for each second j</span>
+<span style="color: #BA2121; font-style: italic">            of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">            Note that this power values are determined from uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">            i.e. without the engine speed increments required by Annex 2 (3.3)</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
 
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> interp1d

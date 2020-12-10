@@ -128,7 +128,66 @@
     InDeceleration,
     AdvancedClutchDisengage,
 ):
+    <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Interleave the clutch Sub-Annex 2 (1.5)</span>
 
+<span style="color: #BA2121; font-style: italic">    .. note::</span>
+<span style="color: #BA2121; font-style: italic">    The prescriptions for the clutch operation shall not be applied if the clutch</span>
+<span style="color: #BA2121; font-style: italic">    is operated automatically without the need of an engagement or disengagement</span>
+<span style="color: #BA2121; font-style: italic">    of the driver.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param TraceTimesCount:</span>
+<span style="color: #BA2121; font-style: italic">        The length of trace times re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">    :type TraceTimesCount: integer</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialGearsFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second.</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialGearsFinal: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchDisengagedByGearFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each gear and each second after apply corrections.</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchDisengagedByGearFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchDisengaged:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each second.</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchDisengaged: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchUndefinedByGearFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch undefined by each gear and each second after apply corrections.</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchUndefinedByGearFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchUndefined:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch undefined by each second.</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchUndefined: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param AutomaticClutchOperation:</span>
+<span style="color: #BA2121; font-style: italic">        Sub-Annex 2 (1.5)</span>
+<span style="color: #BA2121; font-style: italic">        The prescriptions for the clutch operation shall not be applied if the clutch</span>
+<span style="color: #BA2121; font-style: italic">        is operated automatically without the need of an engagement or disengagement</span>
+<span style="color: #BA2121; font-style: italic">        of the driver.</span>
+<span style="color: #BA2121; font-style: italic">    :type AutomaticClutchOperation: boolean</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InDeceleration:</span>
+<span style="color: #BA2121; font-style: italic">        Contains the points that are in deceleration phase as a True</span>
+<span style="color: #BA2121; font-style: italic">    :type InDeceleration: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param AdvancedClutchDisengage:</span>
+<span style="color: #BA2121; font-style: italic">        The seconds in which the advanced clutch disengage</span>
+<span style="color: #BA2121; font-style: italic">    :type AdvancedClutchDisengage: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :return InitialGearsFinalAfterClutch:</span>
+<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second and the</span>
+<span style="color: #BA2121; font-style: italic">        interleave clutch.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype InitialGearsFinalAfterClutch: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :return ClutchDisengagedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :rtype ClutchDisengagedFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :return ClutchUndefinedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch undefined by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :rtype ClutchUndefinedFinal: boolean array</span>
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #408080; font-style: italic"># This is a test parameter that can be included in the inputs in the future</span>
     DoNotMergeClutchIntoGearsOutput <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">True</span>
 

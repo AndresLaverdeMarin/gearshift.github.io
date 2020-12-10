@@ -122,9 +122,9 @@
 <span style="color: #BA2121; font-style: italic">        Times for each vehicle speed required re-sampled in 1Hz</span>
 <span style="color: #BA2121; font-style: italic">    :type TraceTimes: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return Accelerations:</span>
-<span style="color: #BA2121; font-style: italic">         The acceleration required for the whole cycle re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :rtype accelerations: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - Accelerations (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The acceleration required for the whole cycle re-sampled in 1Hz</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     Accelerations <span style="color: #666666">=</span> np<span style="color: #666666">.</span>around(
         np<span style="color: #666666">.</span>append(np<span style="color: #666666">.</span>diff(RequiredVehicleSpeeds) <span style="color: #666666">/</span> (<span style="color: #666666">3.6</span> <span style="color: #666666">*</span> np<span style="color: #666666">.</span>diff(TraceTimes)), <span style="color: #666666">0</span>),

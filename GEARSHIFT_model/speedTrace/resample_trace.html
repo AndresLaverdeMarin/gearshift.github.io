@@ -121,9 +121,13 @@
 <span style="color: #BA2121; font-style: italic">        Velocities and times from the phases of the WLTC cycle.</span>
 <span style="color: #BA2121; font-style: italic">    :type Trace: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return: originalTraceTimes, originalVehicleSpeeds, originalTraceTimesCount</span>
-<span style="color: #BA2121; font-style: italic">        Data required to calculate the final Trace</span>
-<span style="color: #BA2121; font-style: italic">    :rtype: array, array, int</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - originalTraceTimes (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Times for each vehicle speed required re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">        - originalVehicleSpeeds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">        - originalTraceTimesCount (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            The length of trace times re-sampled in 1Hz</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> interp1d
 

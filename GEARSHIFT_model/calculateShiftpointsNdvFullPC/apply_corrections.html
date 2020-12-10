@@ -168,9 +168,9 @@
 <span style="color: #BA2121; font-style: italic">        Acceleration phase following a standstill phase</span>
 <span style="color: #BA2121; font-style: italic">    :type PHASE_ACCELERATION_FROM_STANDSTILL: integer</span>
 
-<span style="color: #BA2121; font-style: italic">    :return PHASE_ACCELERATION:</span>
+<span style="color: #BA2121; font-style: italic">    :param PHASE_ACCELERATION:</span>
 <span style="color: #BA2121; font-style: italic">        Acceleration phase</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PHASE_ACCELERATION: integer</span>
+<span style="color: #BA2121; font-style: italic">    :type PHASE_ACCELERATION: integer</span>
 
 <span style="color: #BA2121; font-style: italic">    :param NoOfGearsFinal:</span>
 <span style="color: #BA2121; font-style: italic">        The number of forward gears after apply the exclusion of first gear</span>
@@ -204,7 +204,7 @@
 
 <span style="color: #BA2121; font-style: italic">    :param PHASE_DECELERATION:</span>
 <span style="color: #BA2121; font-style: italic">        time period of more than 2 seconds with required vehicle</span>
-<span style="color: #BA2121; font-style: italic"> 		speed &gt;= 1km/h and monotonically decreasing</span>
+<span style="color: #BA2121; font-style: italic">                speed &gt;= 1km/h and monotonically decreasing</span>
 <span style="color: #BA2121; font-style: italic">    :type PHASE_DECELERATION: integer</span>
 
 <span style="color: #BA2121; font-style: italic">    :param PHASE_DECELERATION_TO_STANDSTILL:</span>
@@ -256,23 +256,17 @@
 <span style="color: #BA2121; font-style: italic">        Contains the points that are in deceleration phase as a True</span>
 <span style="color: #BA2121; font-style: italic">    :type InDeceleration: boolean array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return InitialGearsFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InitialGearsFinal: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return CorrectionsCells:</span>
-<span style="color: #BA2121; font-style: italic">        Array of gear correction strings for debugging. This contains a historic</span>
-<span style="color: #BA2121; font-style: italic">        transformation of each gear during all execution and the transformation</span>
-<span style="color: #BA2121; font-style: italic">        applied.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype CorrectionsCells: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return ClutchDisengagedByGearFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each gear and each second after apply corrections.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype ClutchDisengagedByGearFinal: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return ClutchUndefinedByGearFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The clutch undefined by each gear and each second after apply corrections.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype ClutchUndefinedByGearFinal: boolean array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - InitialGearsFinal (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The initial gears after apply corrections calculated by each second.</span>
+<span style="color: #BA2121; font-style: italic">        - CorrectionsCells (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Array of gear correction strings for debugging. This contains a historic</span>
+<span style="color: #BA2121; font-style: italic">            transformation of each gear during all execution and the transformation</span>
+<span style="color: #BA2121; font-style: italic">            applied.</span>
+<span style="color: #BA2121; font-style: italic">        - ClutchDisengagedByGearFinal (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The clutch disengaged by each gear and each second after apply corrections.</span>
+<span style="color: #BA2121; font-style: italic">        - ClutchUndefinedByGearFinal (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The clutch undefined by each gear and each second after apply corrections.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">functools</span> <span style="color: #008000; font-weight: bold">import</span> reduce
 

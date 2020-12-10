@@ -122,9 +122,11 @@
 <span style="color: #BA2121; font-style: italic">        Contains the total times of the whole WLTC cycles.</span>
 <span style="color: #BA2121; font-style: italic">    :type originalTraceTimes: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return: phaseStarts, phaseEnds</span>
-<span style="color: #BA2121; font-style: italic">        The position of the beginning and the end of each cycle.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype: array, array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - phaseStarts (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The position of the beginning of each cycle</span>
+<span style="color: #BA2121; font-style: italic">        - phaseEnds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The position of the end of each cycle</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     originalPhaseLengths <span style="color: #666666">=</span> PhaseLengths<span style="color: #666666">.</span>copy()
 

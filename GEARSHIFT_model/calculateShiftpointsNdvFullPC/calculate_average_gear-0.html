@@ -111,6 +111,25 @@
 </div>
 <div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">&quot;ChecksumVxGear&quot;</span>])
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">calculate_average_gear</span>(PhaseSum, InitialGearsFinal, RequiredVehicleSpeeds):
+    <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Calculate average gear</span>
+
+<span style="color: #BA2121; font-style: italic">    :param PhaseSum:</span>
+<span style="color: #BA2121; font-style: italic">        The all phases that are different of standstill phase</span>
+<span style="color: #BA2121; font-style: italic">    :type PhaseSum: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialGearsFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second.</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialGearsFinal: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param RequiredVehicleSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - ChecksumVxGear (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Checksum of v * gear for v &gt;= 1 km/h rounded to four places of decimal</span>
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     ChecksumVxGear <span style="color: #666666">=</span> np<span style="color: #666666">.</span>sum(
         InitialGearsFinal[np<span style="color: #666666">.</span>where(PhaseSum <span style="color: #666666">==</span> <span style="color: #666666">1</span>)]
         <span style="color: #666666">*</span> RequiredVehicleSpeeds[np<span style="color: #666666">.</span>where(PhaseSum <span style="color: #666666">==</span> <span style="color: #666666">1</span>)]

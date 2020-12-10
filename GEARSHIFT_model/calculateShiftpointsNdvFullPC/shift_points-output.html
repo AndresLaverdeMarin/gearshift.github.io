@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+        svg.on {
+            border: 4px solid #008CFF;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        .node.on g:first-of-type a:first-child path:first-child {
+            stroke: #008CFF;
+            stroke-width: 4;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        .node.on g:first-of-type a:first-child polygon:first-child {
+            stroke: #008CFF;
+            stroke-width: 4;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        @keyframes blink-animation {
+            to {
+                stroke-width: 0;
+                border-width: 0;
+            }
+        }
+
+        @-webkit-keyframes blink-animation {
+            to {
+                stroke-width: 0;
+                border-width: 0;
+            }
+        }
+
+        .controls {
+            background: #343a40;
+            width: 100%;
+        }
+
+        .controls button {
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #BBBBBB;
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+
+        .controls button:hover {
+            background-color: #555;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+        }
+
+        #iframe {
+            flex-grow: 1;
+        }
+
+        #index {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sh-ico {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-left: 8px;
+            padding-top: 3px;
+            vertical-align: middle;
+            content: "";
+            background: no-repeat center center;
+            background-size: 100% 100%;
+        }
+
+        .sh-ico-compress {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='none' height='24' stroke='%23BBBBBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3'/%3E%3C/svg%3E");
+        }
+
+        .sh-ico-expand {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='none' height='24' stroke='%23BBBBBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body onload="_onload()">
+<div id="index" style="display: none; height: 100%">
+    <div class="controls">
+        <button id="btnFullScreen" class="sh-ico sh-ico-expand"
+                style="display: none"
+                onclick="FullScreen()"
+                title="Enter/Exit Full Screen">
+        </button>
+        <button id="btnBack" onclick="onBack(event)" title="Go back">
+            &lt;
+        </button>
+        <button id="btnForward" onclick="onForward(event)" title="Go forward">
+            &gt;
+        </button>
+    </div>
+    <iframe id="iframe" allowfullscreen frameborder="0"></iframe>
+</div>
+<div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span>{<span style="color: #BA2121">&#39;AdjustedMax95EngineSpeed&#39;</span>: <span style="color: #666666">2897.439201159607</span>,
+ <span style="color: #BA2121">&#39;AvailablePowersOutput&#39;</span>: array([[nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan],
+       <span style="color: #666666">...</span>,
+       [nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan]]),
+ <span style="color: #BA2121">&#39;AverageGearOutput&#39;</span>: <span style="color: #666666">5.2028</span>,
+ <span style="color: #BA2121">&#39;CalculatedGearsOutput&#39;</span>: array([[<span style="color: #BA2121">&#39;0&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;10&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;15&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;17&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;19&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;21&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;23&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;43&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;44&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;52&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;64&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;69&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;71&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;90&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;91&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;95&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;136&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;141&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;143&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;145&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;147&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;154&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;155&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;159&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;161&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;164&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;174&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;186&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;189&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;204&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;206&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;208&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;247&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;248&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;256&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;259&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;261&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;264&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;279&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;285&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;319&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;329&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;333&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;340&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;342&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;363&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;375&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;376&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;383&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;390&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;395&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;397&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;399&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;408&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;416&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;422&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;424&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;426&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;428&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;437&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;438&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;441&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;510&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;515&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;517&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;526&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;531&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;536&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;538&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;540&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;549&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;565&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;599&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;603&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;605&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;607&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;609&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;611&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;661&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;662&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;668&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;670&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;672&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;681&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;682&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;687&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;689&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;698&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;701&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;707&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;721&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;723&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;725&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;761&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;762&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;767&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;769&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;771&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;816&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;817&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;821&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;824&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;957&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;961&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;975&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;976&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;980&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;984&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;1025&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;1030&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;1032&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;1034&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;1036&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;1038&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;1058&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;1059&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;1066&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;1068&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;1070&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;1133&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;1134&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;1143&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;1149&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;1154&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;1156&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;1158&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;1408&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;1416&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;1434&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;1435&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;1448&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;1477&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-1&#39;</span>],
+       [<span style="color: #BA2121">&#39;1481&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-2&#39;</span>],
+       [<span style="color: #BA2121">&#39;1485&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;1488&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-4&#39;</span>],
+       [<span style="color: #BA2121">&#39;1490&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;1492&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-6&#39;</span>],
+       [<span style="color: #BA2121">&#39;1786&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-5&#39;</span>],
+       [<span style="color: #BA2121">&#39;1789&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>],
+       [<span style="color: #BA2121">&#39;1790&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-3&#39;</span>],
+       [<span style="color: #BA2121">&#39;1793&#39;</span>, <span style="color: #BA2121">&#39;MANUAL-NEUTRAL&#39;</span>]], dtype<span style="color: #666666">=</span><span style="color: #BA2121">&#39;&lt;U14&#39;</span>),
+ <span style="color: #BA2121">&#39;ChecksumVxGearOutput&#39;</span>: <span style="color: #666666">469538.9</span>,
+ <span style="color: #BA2121">&#39;ClutchDisengagedOutput&#39;</span>: array([<span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">...</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>]),
+ <span style="color: #BA2121">&#39;ClutchHSTOutput&#39;</span>: array([<span style="color: #BA2121">&#39;engaged; gear lever in neutral&#39;</span>, <span style="color: #BA2121">&#39;engaged; gear lever in neutral&#39;</span>,
+       <span style="color: #BA2121">&#39;engaged; gear lever in neutral&#39;</span>, <span style="color: #666666">...</span>,
+       <span style="color: #BA2121">&#39;engaged; gear lever in neutral&#39;</span>, <span style="color: #BA2121">&#39;engaged; gear lever in neutral&#39;</span>,
+       <span style="color: #BA2121">&#39;engaged; gear lever in neutral&#39;</span>], dtype<span style="color: #666666">=</span><span style="color: #BA2121">&#39;&lt;U30&#39;</span>),
+ <span style="color: #BA2121">&#39;ClutchUndefinedOutput&#39;</span>: array([<span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">...</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>]),
+ <span style="color: #BA2121">&#39;GearCorrectionsOutput&#39;</span>: array([<span style="color: #BA2121">&#39;0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0&#39;</span>,
+       <span style="color: #BA2121">&#39;0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0&#39;</span>,
+       <span style="color: #BA2121">&#39;0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0&#39;</span>,
+       <span style="color: #666666">...</span>,
+       <span style="color: #BA2121">&#39;0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0&#39;</span>,
+       <span style="color: #BA2121">&#39;0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0&#39;</span>,
+       <span style="color: #BA2121">&#39;0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0  ---  0&#39;</span>],
+      dtype<span style="color: #666666">=</span><span style="color: #BA2121">&#39;&lt;U145&#39;</span>),
+ <span style="color: #BA2121">&#39;GearMaxVehicleSpeedReachableOutput&#39;</span>: <span style="color: #666666">5</span>,
+ <span style="color: #BA2121">&#39;GearsOutput&#39;</span>: array([<span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">...</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>, <span style="color: #666666">0</span>]),
+ <span style="color: #BA2121">&#39;MaxEngineSpeedCycleOutput&#39;</span>: <span style="color: #666666">3682.7999999999997</span>,
+ <span style="color: #BA2121">&#39;MaxEngineSpeedOutput&#39;</span>: <span style="color: #666666">3682.7999999999997</span>,
+ <span style="color: #BA2121">&#39;MaxEngineSpeedReachableOutput&#39;</span>: <span style="color: #666666">3354.2000000000003</span>,
+ <span style="color: #BA2121">&#39;MaxVehicleSpeedCycleOutput&#39;</span>: <span style="color: #666666">108.20996459354215</span>,
+ <span style="color: #BA2121">&#39;MaxVehicleSpeedReachableOutput&#39;</span>: <span style="color: #666666">108.2</span>,
+ <span style="color: #BA2121">&#39;MinDriveEngineSpeed1stOutput&#39;</span>: <span style="color: #666666">600.0</span>,
+ <span style="color: #BA2121">&#39;MinDriveEngineSpeed1stTo2ndOutput&#39;</span>: <span style="color: #666666">690.0</span>,
+ <span style="color: #BA2121">&#39;MinDriveEngineSpeed2ndDecelOutput&#39;</span>: <span style="color: #666666">600.0</span>,
+ <span style="color: #BA2121">&#39;MinDriveEngineSpeed2ndOutput&#39;</span>: <span style="color: #666666">540.0</span>,
+ <span style="color: #BA2121">&#39;MinDriveEngineSpeedGreater2ndOutput&#39;</span>: <span style="color: #666666">875.0</span>,
+ <span style="color: #BA2121">&#39;PowerCurveOutput&#39;</span>: array([[ <span style="color: #666666">600.</span>   ,   <span style="color: #666666">11.</span>   ,    <span style="color: #666666">0.</span>   ],
+       [ <span style="color: #666666">710.</span>   ,   <span style="color: #666666">19.98</span> ,    <span style="color: #666666">0.</span>   ],
+       [ <span style="color: #666666">820.</span>   ,   <span style="color: #666666">28.96</span> ,    <span style="color: #666666">0.</span>   ],
+       [ <span style="color: #666666">930.</span>   ,   <span style="color: #666666">37.917</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1040.</span>   ,   <span style="color: #666666">46.874</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1150.</span>   ,   <span style="color: #666666">56.093</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1260.</span>   ,   <span style="color: #666666">65.311</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1370.</span>   ,   <span style="color: #666666">73.022</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1480.</span>   ,   <span style="color: #666666">80.734</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1590.</span>   ,   <span style="color: #666666">85.905</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1700.</span>   ,   <span style="color: #666666">91.077</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1810.</span>   ,   <span style="color: #666666">94.146</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">1920.</span>   ,   <span style="color: #666666">97.214</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2030.</span>   ,   <span style="color: #666666">99.882</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2140.</span>   ,  <span style="color: #666666">102.55</span> ,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2250.</span>   ,  <span style="color: #666666">104.333</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2360.</span>   ,  <span style="color: #666666">106.116</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2470.</span>   ,  <span style="color: #666666">107.085</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2580.</span>   ,  <span style="color: #666666">108.055</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2690.</span>   ,  <span style="color: #666666">109.027</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2800.</span>   ,  <span style="color: #666666">110.</span>   ,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">2910.</span>   ,  <span style="color: #666666">103.791</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3020.</span>   ,   <span style="color: #666666">97.582</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3130.</span>   ,   <span style="color: #666666">91.373</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3240.</span>   ,   <span style="color: #666666">85.164</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3350.</span>   ,   <span style="color: #666666">78.955</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3460.</span>   ,   <span style="color: #666666">72.747</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3570.</span>   ,   <span style="color: #666666">66.538</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3680.</span>   ,   <span style="color: #666666">60.329</span>,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3790.</span>   ,   <span style="color: #666666">54.12</span> ,    <span style="color: #666666">0.</span>   ],
+       [<span style="color: #666666">3900.</span>   ,   <span style="color: #666666">47.911</span>,    <span style="color: #666666">0.</span>   ]]),
+ <span style="color: #BA2121">&#39;RequiredEngineSpeedsOutput&#39;</span>: array([[nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan],
+       <span style="color: #666666">...</span>,
+       [nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan]]),
+ <span style="color: #BA2121">&#39;RequiredPowersOutput&#39;</span>: array([<span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">...</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>]),
+ <span style="color: #BA2121">&#39;RequiredVehicleSpeedsOutput&#39;</span>: array([<span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">...</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>, <span style="color: #666666">0.</span>]),
+ <span style="color: #BA2121">&#39;TraceTimesOutput&#39;</span>: array([   <span style="color: #666666">0</span>,    <span style="color: #666666">1</span>,    <span style="color: #666666">2</span>, <span style="color: #666666">...</span>, <span style="color: #666666">1798</span>, <span style="color: #666666">1799</span>, <span style="color: #666666">1800</span>])}
+</pre></div>
+</div>
+
+<script>
+    var id, hist = {i: -1, list: []}, isFull;
+
+    function FullScreen() {
+        var el = document.getElementById("btnFullScreen");
+        if (isFull) {
+            closeFullscreen();
+            isFull = false;
+            el.setAttribute('class', el.getAttribute('class').replace("sh-ico-compress", "sh-ico-expand"));
+        } else {
+            openFullscreen();
+            isFull = true;
+            el.setAttribute('class', el.getAttribute('class').replace("sh-ico-expand", "sh-ico-compress"));
+        }
+    }
+
+    function getURLParam(name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        } else {
+            return decodeURI(results[1]) || 0;
+        }
+    }
+
+    function setURLParam(key, value) {
+        let uri = window.location.href,
+            re = new RegExp("([?&])" + key + "=.*?(&|$)", "i"),
+            separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + encodeURI(value) + '$2');
+        } else {
+            return uri + separator + key + "=" + encodeURI(value);
+        }
+    }
+
+    function iframeLoad(e) {
+        e.preventDefault();
+        document.getElementById("iframe").contentWindow.postMessage({
+            id: id,
+            action: 'id'
+        }, '*');
+    }
+
+    function onBack(e) {
+        e.preventDefault();
+        if (hist.i > 0) {
+            hist.i--;
+            setIframe(hist.list[hist.i])
+        }
+    }
+
+    function onForward(e) {
+        e.preventDefault();
+        if (hist.i + 1 < hist.list.length) {
+            hist.i++;
+            setIframe(hist.list[hist.i])
+        }
+    }
+
+    function setIframe(src) {
+        document.getElementById("iframe").src = src
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    }
+
+    function isFullscreenSupported() {
+        let elem = document.body;
+        return elem.requestFullscreen || elem.mozRequestFullScreen || elem.webkitRequestFullscreen || elem.msRequestFullscreen
+    }
+
+    function openFullscreen() {
+        let elem = document.body;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen()
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen()
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen()
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen()
+        }
+    }
+
+    function _onload() {
+        if (getURLParam("controls") === "true") {
+            document.getElementById("iframe").onload = iframeLoad;
+            document.getElementById("index").style.display = "flex";
+            if (isFullscreenSupported())
+                document.getElementById("btnFullScreen").style.display = "inline-block";
+            id = Date.now();
+            setIframe(setURLParam("controls", "false"));
+            window.addEventListener('message', function (event) {
+                if (event.data.id === id) {
+                    if (event.data.action === 'url') {
+                        let href = event.data.url;
+                        if (hist.list[hist.i] !== href) {
+                            hist.i++;
+                            hist.list = hist.list.slice(0, hist.i);
+                            hist.list.push(href);
+                        }
+                        if (hist.i > 0) {
+                            document.getElementById("btnBack").style.opacity = "1"
+                        } else {
+                            document.getElementById("btnBack").style.opacity = "0.5"
+                        }
+                        if (hist.i + 1 < hist.list.length) {
+                            document.getElementById("btnForward").style.opacity = "1"
+                        } else {
+                            document.getElementById("btnForward").style.opacity = "0.5"
+                        }
+                    }
+                }
+            });
+        } else {
+            refreshIntervalId = setInterval(sendUrl, 100);
+            setTimeout(function () {
+                clearInterval(refreshIntervalId)
+            }, 30000);
+            document.getElementById("content").style.display = "block";
+            var el = document.getElementById(getURLParam("id") || 'graph0');
+            if (el)
+                if (el.getAttribute('class').indexOf('node') !== -1) {
+                    var bound = el.getBoundingClientRect();
+                    window.scrollTo((bound.left + bound.right) / 2 - document.body.offsetWidth / 2, (bound.top + bound.bottom) / 2 - document.body.offsetHeight / 2);
+                    el.setAttribute('class', el.getAttribute('class') + " on");
+                } else if (el.getAttribute('class').indexOf('graph') !== -1) {
+                    el.parentNode.setAttribute('class', el.parentNode.getAttribute('class') + " on");
+                }
+        }
+    }
+
+    function getParentOrigin() {
+        try {
+            return parent.window.origin || "null";
+        } catch (exception) {
+            return "null"
+        }
+    }
+
+    function sendUrl() {
+        if (parent_iframe_id !== null && window.location.href !== url) {
+            url = window.location.href;
+            parent.postMessage({
+                id: parent_iframe_id,
+                url: url,
+                action: 'url'
+            }, '*');
+            clearInterval(refreshIntervalId);
+        }
+    }
+
+    var parent_iframe_id = null, url = null, refreshIntervalId;
+    window.addEventListener('message', function (event) {
+        var origin = event.origin === 'file:' ? 'null' : (event.origin || 'null');
+        if (origin === getParentOrigin())
+            if (parent_iframe_id === null && event.data.action === 'id') {
+                parent_iframe_id = event.data.id
+            }
+    });
+</script>
+</body>
+</html>

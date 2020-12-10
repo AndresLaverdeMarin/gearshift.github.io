@@ -113,6 +113,34 @@
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">remove_duplicate_gears</span>(
     InitialGearsFinalAfterClutch, ClutchUndefinedFinal, ClutchDisengagedFinal
 ):
+    <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Remove duplicate gears</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialGearsFinalAfterClutch:</span>
+<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second and the</span>
+<span style="color: #BA2121; font-style: italic">        interleave clutch.</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialGearsFinalAfterClutch: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchUndefinedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch undefined by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchUndefinedFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchDisengagedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchDisengagedFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - ClutchHST (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Array of clutch state names as used by the Heinz Steven Tool (HST).</span>
+<span style="color: #BA2121; font-style: italic">        - GearSequenceStarts (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Array that contains the position of the gear sequence start for the different</span>
+<span style="color: #BA2121; font-style: italic">            gears.</span>
+<span style="color: #BA2121; font-style: italic">        - GearSequenceStarts (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The name of gear to used by each gear sequence starts.</span>
+
+<span style="color: #BA2121; font-style: italic">    .. note:: A clutch disengagement and a gear change cannot be indicated at the same time</span>
+<span style="color: #BA2121; font-style: italic">        and the clutch disengagement will therefore be indicated one second earlier.</span>
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">functools</span> <span style="color: #008000; font-weight: bold">import</span> reduce
     <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">regex</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">re</span>
 

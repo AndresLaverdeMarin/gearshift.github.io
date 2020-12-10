@@ -109,7 +109,7 @@
     </div>
     <iframe id="iframe" allowfullscreen frameborder="0"></iframe>
 </div>
-<div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">&quot;MinDrives&quot;</span>], input_domain<span style="color: #666666">=</span>check_minimum_engine_speed)
+<div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">&quot;MinDrives&quot;</span>], input_domain<span style="color: #666666">=</span>_check_minimum_engine_speed)
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">define_minimum_engine_speed_in_motion</span>(
     MinDrivesI,
     CalculatedMinDriveEngineSpeedGreater2nd,
@@ -178,7 +178,7 @@
 
 <span style="color: #BA2121; font-style: italic">    :param RequiredVehicleSpeeds:</span>
 <span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param TimeEndOfStartPhase:</span>
 <span style="color: #BA2121; font-style: italic">        Annex 2 (2j) t_start_phase</span>
@@ -190,11 +190,11 @@
 <span style="color: #BA2121; font-style: italic">        The input parameter here is used in combination with</span>
 <span style="color: #BA2121; font-style: italic">        MinDriveEngineSpeedGreater2ndAccelStartPhase and</span>
 <span style="color: #BA2121; font-style: italic">        MinDriveEngineSpeedGreater2ndDecelStartPhase.</span>
-<span style="color: #BA2121; font-style: italic">    :type TimeEndOfStartPhase: array</span>
+<span style="color: #BA2121; font-style: italic">    :type TimeEndOfStartPhase: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param TraceTimes:</span>
 <span style="color: #BA2121; font-style: italic">        Times for each vehicle speed required re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :type TraceTimes: array</span>
+<span style="color: #BA2121; font-style: italic">    :type TraceTimes: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param NoOfGearsFinal:</span>
 <span style="color: #BA2121; font-style: italic">        The number of forward gears after apply the exclusion of first gear</span>
@@ -203,12 +203,12 @@
 
 <span style="color: #BA2121; font-style: italic">    :param Accelerations:</span>
 <span style="color: #BA2121; font-style: italic">         The acceleration required for the whole cycle re-sampled in 1Hz</span>
-<span style="color: #BA2121; font-style: italic">    :type Accelerations: array</span>
+<span style="color: #BA2121; font-style: italic">    :type Accelerations: numpy.array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return MinDrives:</span>
-<span style="color: #BA2121; font-style: italic">        Samples which have acceleration values &gt;= -0.1389 m/s² ( = 0.5 (km/h)/s )</span>
-<span style="color: #BA2121; font-style: italic">        shall belong to the acceleration/constant speed phases.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MinDrives: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - MinDrives (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Samples which have acceleration values &gt;= -0.1389 m/s² ( = 0.5 (km/h)/s )</span>
+<span style="color: #BA2121; font-style: italic">            shall belong to the acceleration/constant speed phases.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
 
     NoOfGears <span style="color: #666666">=</span> NoOfGearsFinal

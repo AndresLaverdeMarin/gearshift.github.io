@@ -117,7 +117,6 @@
         <span style="color: #BA2121">&quot;compensatedVehicleSpeeds&quot;</span>,
         <span style="color: #BA2121">&quot;downscaledCompensated&quot;</span>,
         <span style="color: #BA2121">&quot;cappedCompensated&quot;</span>,
-        <span style="color: #BA2121">&quot;compensatedTraceTimes&quot;</span>,
         <span style="color: #BA2121">&quot;additionalSamples&quot;</span>,
     ],
 )
@@ -181,12 +180,24 @@
 <span style="color: #BA2121; font-style: italic">    :param downscaled:</span>
 <span style="color: #BA2121; font-style: italic">        The boolean array that show the vehicle speeds downscaled.</span>
 <span style="color: #BA2121; font-style: italic">    :type  downscaled: boolean array</span>
-<span style="color: #BA2121; font-style: italic">    :return compensated, compensatedTraceTimes, compensatedVehicleSpeeds, downscaledCompensated, cappedCompensated,</span>
-<span style="color: #BA2121; font-style: italic">            compensatedTraceTimes, additionalSamples:</span>
-<span style="color: #BA2121; font-style: italic">        Data required to calculate the final Trace</span>
-<span style="color: #BA2121; font-style: italic">    :rtype compensated, compensatedTraceTimes, compensatedVehicleSpeeds, downscaledCompensated, cappedCompensated,</span>
-<span style="color: #BA2121; font-style: italic">            compensatedTraceTimes, additionalSamples: boolean array, array, array, boolean array, boolean array,</span>
-<span style="color: #BA2121; font-style: italic">            array, array</span>
+
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - compensated (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The boolean array that contains the values that have been compensated as True</span>
+<span style="color: #BA2121; font-style: italic">        - compensatedTraceTimes (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The trace times that array contains the new values of the compensation if</span>
+<span style="color: #BA2121; font-style: italic">            compensation has been necessary</span>
+<span style="color: #BA2121; font-style: italic">        - compensatedVehicleSpeeds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The vehicle speeds array that contains the new values of the compensation if</span>
+<span style="color: #BA2121; font-style: italic">            compensation has been necessary</span>
+<span style="color: #BA2121; font-style: italic">        - downscaledCompensated (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The boolean array that contains the values that have been downscaled and</span>
+<span style="color: #BA2121; font-style: italic">            compensated as True</span>
+<span style="color: #BA2121; font-style: italic">        - cappedCompensated (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The boolean array that contains the values that have been capped and</span>
+<span style="color: #BA2121; font-style: italic">            compensated as True</span>
+<span style="color: #BA2121; font-style: italic">        - additionalSamples (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The additional samples after apply compensation</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
 
     compensated <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros(originalTraceTimesCount)
@@ -249,7 +260,6 @@
         compensatedVehicleSpeeds,
         downscaledCompensated,
         cappedCompensated,
-        compensatedTraceTimes,
         additionalSamples,
     )
 </pre></div>

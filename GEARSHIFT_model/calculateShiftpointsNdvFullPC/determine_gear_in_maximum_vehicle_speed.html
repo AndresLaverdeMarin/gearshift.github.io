@@ -127,7 +127,7 @@
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurveEngineSpeeds:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
-<span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param f0:</span>
 <span style="color: #BA2121; font-style: italic">        The constant road load coefficient,</span>
@@ -148,7 +148,7 @@
 <span style="color: #BA2121; font-style: italic">        The ratio obtained by dividing the engine speed n by the vehicle speed v</span>
 <span style="color: #BA2121; font-style: italic">        for each gear i form 1 to ng after apply the exclusion of first gear if</span>
 <span style="color: #BA2121; font-style: italic">        is necessary.</span>
-<span style="color: #BA2121; font-style: italic">    :type NdvRatios: array</span>
+<span style="color: #BA2121; font-style: italic">    :type NdvRatios: numpy.array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param NoOfGearsFinal:</span>
 <span style="color: #BA2121; font-style: italic">        The number of forward gears after apply the exclusion of first gear</span>
@@ -157,15 +157,13 @@
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurvePowers:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve powers</span>
-<span style="color: #BA2121; font-style: italic">    :type PowerCurvePowers: array</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurvePowers: numpy.array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return GearAtMaxVehicleSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The gear that have the maximum vehicle speed</span>
-<span style="color: #BA2121; font-style: italic">    :rtype GearAtMaxVehicleSpeed: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return MaxVehicleSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The maximum vehicle speed</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MaxVehicleSpeed: float</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - MinDrives (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The gear that have the maximum vehicle speed</span>
+<span style="color: #BA2121; font-style: italic">        - MaxVehicleSpeed (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The maximum vehicle speed</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> interp1d
 

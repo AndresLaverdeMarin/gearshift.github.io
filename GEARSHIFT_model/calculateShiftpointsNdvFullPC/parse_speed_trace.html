@@ -119,13 +119,11 @@
 <span style="color: #BA2121; font-style: italic">        The vehicle speed at second i.</span>
 <span style="color: #BA2121; font-style: italic">    :type speed_trace: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return TraceTimesInput:</span>
-<span style="color: #BA2121; font-style: italic">        Times for each vehicle speed required</span>
-<span style="color: #BA2121; font-style: italic">    :rtype TraceTimesInput: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return RequiredVehicleSpeedsInput:</span>
-<span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype RequiredVehicleSpeedsInput: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - TraceTimesInput (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Times for each vehicle speed required</span>
+<span style="color: #BA2121; font-style: italic">        - RequiredVehicleSpeedsInput (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The vehicle speed required for the whole cycle.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     TraceTimesInput <span style="color: #666666">=</span> speed_trace[<span style="color: #BA2121">&quot;ApplicableTrace&quot;</span>][<span style="color: #BA2121">&quot;compensatedTraceTimes&quot;</span>]
     RequiredVehicleSpeedsInput <span style="color: #666666">=</span> speed_trace[<span style="color: #BA2121">&quot;ApplicableTrace&quot;</span>][

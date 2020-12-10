@@ -117,7 +117,6 @@
     SafetyMargin,
     PowerCurveASM,
     IdlingEngineSpeed,
-    AdditionalSafetyMargin0,
     RequiredEngineSpeeds,
     RequiredVehicleSpeeds,
     f0,
@@ -132,6 +131,116 @@
     AvailablePowers,
     NdvRatios,
 ):
+    <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Reduce vehicle speed if not enough power is available</span>
+
+<span style="color: #BA2121; font-style: italic">    :param DefinedPowerCurveAdditionalSafetyMargins:</span>
+<span style="color: #BA2121; font-style: italic">        Boolean that define if the additional save margins are present</span>
+<span style="color: #BA2121; font-style: italic">    :type DefinedPowerCurveAdditionalSafetyMargins: boolean</span>
+
+<span style="color: #BA2121; font-style: italic">    :param PowerCurveEngineSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurveEngineSpeeds: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param PowerCurvePowers:</span>
+<span style="color: #BA2121; font-style: italic">        Contains the power curve powers</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurvePowers: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param SafetyMargin:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.4) SM</span>
+<span style="color: #BA2121; font-style: italic">        The safety margin is accounting for the difference between the</span>
+<span style="color: #BA2121; font-style: italic">        stationary full load condition power curve and the power available</span>
+<span style="color: #BA2121; font-style: italic">        during transition conditions.</span>
+<span style="color: #BA2121; font-style: italic">        SM is set to 10 per cent.</span>
+<span style="color: #BA2121; font-style: italic">    :type SafetyMargin: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param PowerCurveASM:</span>
+<span style="color: #BA2121; font-style: italic">        Contains the power curve additional save margin</span>
+<span style="color: #BA2121; font-style: italic">    :type PowerCurveASM: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param IdlingEngineSpeed:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2c) n_idle. The idling speed.</span>
+<span style="color: #BA2121; font-style: italic">    :type IdlingEngineSpeed: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param RequiredEngineSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.2) n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        The engine speeds required</span>
+<span style="color: #BA2121; font-style: italic">        for each gear i from 1 to ng and</span>
+<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">        Note that this are the uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        ie without the increments required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredEngineSpeeds: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param RequiredVehicleSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param f0:</span>
+<span style="color: #BA2121; font-style: italic">        The constant road load coefficient,</span>
+<span style="color: #BA2121; font-style: italic">        i.e. independent of velocity, caused by internal frictional resistances.</span>
+<span style="color: #BA2121; font-style: italic">    :type f0: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param f1:</span>
+<span style="color: #BA2121; font-style: italic">        The linear road load coefficient,</span>
+<span style="color: #BA2121; font-style: italic">        i.e. proportional to velocity, caused by tyres rolling resistances.</span>
+<span style="color: #BA2121; font-style: italic">    :type f1: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param f2:</span>
+<span style="color: #BA2121; font-style: italic">        The quadratic road load coefficient,</span>
+<span style="color: #BA2121; font-style: italic">        i.e. quadratical to velocity, caused by aerodynamic resistances.</span>
+<span style="color: #BA2121; font-style: italic">    :type f2: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param VehicleTestMass:</span>
+<span style="color: #BA2121; font-style: italic">        The test mass of the vehicle.</span>
+<span style="color: #BA2121; font-style: italic">    :type VehicleTestMass: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param requiredPowersF:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.1) P_required,j</span>
+<span style="color: #BA2121; font-style: italic">        The power required to overcome driving resistance and to accelerate</span>
+<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">    :type requiredPowersF: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchDisengagedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchDisengagedFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchUndefinedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch undefined by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchUndefinedFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialGearsFinalAfterClutch:</span>
+<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second and the</span>
+<span style="color: #BA2121; font-style: italic">        interleave clutch.</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialGearsFinalAfterClutch: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param NoOfGearsFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The number of forward gears after apply the exclusion of first gear</span>
+<span style="color: #BA2121; font-style: italic">        if is necessary.</span>
+<span style="color: #BA2121; font-style: italic">    :type NoOfGearsFinal: integer</span>
+
+<span style="color: #BA2121; font-style: italic">    :param AvailablePowers:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.4) P_available_i,j</span>
+<span style="color: #BA2121; font-style: italic">        The power available for each gear i from 1 to ng and for each second j</span>
+<span style="color: #BA2121; font-style: italic">        of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">        Note that this power values are determined from uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        i.e. without the engine speed increments required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">    :type AvailablePowers: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param NdvRatios:</span>
+<span style="color: #BA2121; font-style: italic">        The ratio obtained by dividing the engine speed n by the vehicle speed v</span>
+<span style="color: #BA2121; font-style: italic">        for each gear i form 1 to ng after apply the exclusion of first gear if</span>
+<span style="color: #BA2121; font-style: italic">        is necessary.</span>
+<span style="color: #BA2121; font-style: italic">    :type NdvRatios: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - AvailablePowersFinal (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (3.4) P_available_i,j</span>
+<span style="color: #BA2121; font-style: italic">            The power available for each gear i from 1 to ng and for each second j</span>
+<span style="color: #BA2121; font-style: italic">            of the cycle trace, after check vehicle speed.</span>
+<span style="color: #BA2121; font-style: italic">            Note that this power values are determined from uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">            i.e. without the engine speed increments required by Annex 2 (3.3)</span>
+
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
 
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> interp1d
 

@@ -193,17 +193,20 @@
 <span style="color: #BA2121; font-style: italic">    :type MinDrives: array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param GearAtMaxVehicleSpeedFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The gear that have the maximum vehicle speed after check required engine speeds</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2i) ng_vmax</span>
+<span style="color: #BA2121; font-style: italic">        The gear in which the maximum vehicle speed is reached.</span>
 <span style="color: #BA2121; font-style: italic">    :type GearAtMaxVehicleSpeedFinal: integer</span>
 
 <span style="color: #BA2121; font-style: italic">    :param Max95EngineSpeedFinal:</span>
-<span style="color: #BA2121; font-style: italic">        The maximum engine speed where 95 percent of the rated power is</span>
-<span style="color: #BA2121; font-style: italic">        reached from the full power curve</span>
+<span style="color: #BA2121; font-style: italic">         Annex 2 (2g) n_max1 = n_95_high adjusted</span>
+<span style="color: #BA2121; font-style: italic">         If n_95_high cannot be determined because the engine speed is limited to</span>
+<span style="color: #BA2121; font-style: italic">         a lower value n_lim for all gears and the corresponding full load power</span>
+<span style="color: #BA2121; font-style: italic">         is higher than 95 per cent of rated power, n_95_high shall be set to n_lim.</span>
 <span style="color: #BA2121; font-style: italic">    :type Max95EngineSpeedFinal: float</span>
 
-<span style="color: #BA2121; font-style: italic">    :return EngineSpeedAtGearAtMaxRequiredSpeed:</span>
+<span style="color: #BA2121; font-style: italic">    :param EngineSpeedAtGearAtMaxRequiredSpeed:</span>
 <span style="color: #BA2121; font-style: italic">        The engine speed at gear maximum required speed</span>
-<span style="color: #BA2121; font-style: italic">    :rtype EngineSpeedAtGearAtMaxRequiredSpeed: float</span>
+<span style="color: #BA2121; font-style: italic">    :type EngineSpeedAtGearAtMaxRequiredSpeed: float</span>
 
 <span style="color: #BA2121; font-style: italic">    :param PowerCurveEngineSpeeds:</span>
 <span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
@@ -213,44 +216,32 @@
 <span style="color: #BA2121; font-style: italic">        The array that contains the seconds from deceleration to standstill as a True</span>
 <span style="color: #BA2121; font-style: italic">    :type InDecelerationToStandstill: boolean array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return RequiredEngineSpeeds:</span>
-<span style="color: #BA2121; font-style: italic">        The engine speeds required for each gear i from 1 to ng and</span>
-<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype RequiredEngineSpeeds: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InitialRequiredEngineSpeeds:</span>
-<span style="color: #BA2121; font-style: italic">        The initial engine speeds required for each gear i from 1 to ng and</span>
-<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InitialRequiredEngineSpeeds: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PossibleGearsByEngineSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        The possible gear that can be used for each second.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PossibleGearsByEngineSpeed: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return AccelerationFromStandstillStarts:</span>
-<span style="color: #BA2121; font-style: italic">        The phase start seconds when the phase is going to acceleration</span>
-<span style="color: #BA2121; font-style: italic">        from stand still.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype AccelerationFromStandstillStarts: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return ClutchDisengagedByGear:</span>
-<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each gear and each second.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype ClutchDisengagedByGear: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return ClutchUndefinedByGear:</span>
-<span style="color: #BA2121; font-style: italic">        The clutch undefined by each gear and each second.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype ClutchUndefinedByGear: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return ClutchDisengaged:</span>
-<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each second.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype ClutchDisengaged: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return ClutchUndefined:</span>
-<span style="color: #BA2121; font-style: italic">        The clutch undefined by each second.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype ClutchUndefined: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return AdvancedClutchDisengage:</span>
-<span style="color: #BA2121; font-style: italic">        The seconds in which the advanced clutch disengage</span>
-<span style="color: #BA2121; font-style: italic">    :rtype AdvancedClutchDisengage: list</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - RequiredEngineSpeeds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (3.2) n_i,j</span>
+<span style="color: #BA2121; font-style: italic">            The engine speeds required</span>
+<span style="color: #BA2121; font-style: italic">            for each gear i from 1 to ng and</span>
+<span style="color: #BA2121; font-style: italic">            for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">            .. note::  Note that this are the uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">                i.e. without the increments required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">        - InitialRequiredEngineSpeeds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The initial engine speeds required for each gear i from 1 to ng and</span>
+<span style="color: #BA2121; font-style: italic">            for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">        - PossibleGearsByEngineSpeed (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The possible gear that can be used for each second.</span>
+<span style="color: #BA2121; font-style: italic">        - AccelerationFromStandstillStarts (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The phase start seconds when the phase is going to acceleration</span>
+<span style="color: #BA2121; font-style: italic">            from stand still.</span>
+<span style="color: #BA2121; font-style: italic">        - ClutchDisengagedByGear (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The clutch disengaged by each gear and each second.</span>
+<span style="color: #BA2121; font-style: italic">        - ClutchUndefinedByGear (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The clutch undefined by each gear and each second.</span>
+<span style="color: #BA2121; font-style: italic">        - ClutchDisengaged (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The clutch disengaged by each second.</span>
+<span style="color: #BA2121; font-style: italic">        - ClutchUndefined (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The clutch undefined by each second.</span>
+<span style="color: #BA2121; font-style: italic">        - AdvancedClutchDisengage (:py:class:`list`):</span>
+<span style="color: #BA2121; font-style: italic">            The seconds in which the advanced clutch disengaget</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">functools</span> <span style="color: #008000; font-weight: bold">import</span> reduce
 

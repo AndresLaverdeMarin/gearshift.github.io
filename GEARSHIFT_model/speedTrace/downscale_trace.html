@@ -164,11 +164,11 @@
 
 <span style="color: #BA2121; font-style: italic">    :param requiredPowers:</span>
 <span style="color: #BA2121; font-style: italic">        The power required to overcome driving resistance and to accelerate.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype requiredPowers: array</span>
+<span style="color: #BA2121; font-style: italic">    :type requiredPowers: array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param RatedEnginePower:</span>
 <span style="color: #BA2121; font-style: italic">        The maximum rated engine required</span>
-<span style="color: #BA2121; font-style: italic">    :return RatedEnginePower: float</span>
+<span style="color: #BA2121; font-style: italic">    :type RatedEnginePower: float</span>
 
 <span style="color: #BA2121; font-style: italic">    :param ScalingStartTimes:</span>
 <span style="color: #BA2121; font-style: italic">         Contains the start times of the segments to scale in seconds.</span>
@@ -204,11 +204,19 @@
 <span style="color: #BA2121; font-style: italic">        Accelerations from the whole WLTC cycles.</span>
 <span style="color: #BA2121; font-style: italic">    :type accelerations: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return downscaled, downscaledVehicleSpeeds, requiredToRatedPowerRatios, calculatedDownscalingFactors,</span>
-<span style="color: #BA2121; font-style: italic">            downscalingFactor, requiredToRatedPowerRatio:</span>
-<span style="color: #BA2121; font-style: italic">        Data required to calculate the final Trace</span>
-<span style="color: #BA2121; font-style: italic">    :type downscaled, downscaledVehicleSpeeds, requiredToRatedPowerRatios, calculatedDownscalingFactors,</span>
-<span style="color: #BA2121; font-style: italic">    downscalingFactor, requiredToRatedPowerRatio: boolean array, boolean array, array, array, float, float</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - downscaled (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Array that contains the values that have been downscaled as True</span>
+<span style="color: #BA2121; font-style: italic">        - downscaledVehicleSpeeds (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The vehicle speed after have been downscaled</span>
+<span style="color: #BA2121; font-style: italic">        - requiredToRatedPowerRatios (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The required power ratios after apply the downscaling factor</span>
+<span style="color: #BA2121; font-style: italic">        - calculatedDownscalingFactors (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The downscaling factor for each time of the whole cycle</span>
+<span style="color: #BA2121; font-style: italic">        - downscalingFactor (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The downscaling factor applicable</span>
+<span style="color: #BA2121; font-style: italic">        - requiredToRatedPowerRatio (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The maximum required to rated power ratio</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
 
     downscalingFactor, requiredToRatedPowerRatio <span style="color: #666666">=</span> _calculate_downscaling_factor(

@@ -112,7 +112,31 @@
 <div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">&quot;AverageGear&quot;</span>, <span style="color: #BA2121">&quot;PhaseSum&quot;</span>])
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">calculate_average_gear</span>(Phases, PHASE_STANDSTILL, InitialGearsFinal):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Calculate Average Gear</span>
 
+<span style="color: #BA2121; font-style: italic">    :param Phases:</span>
+<span style="color: #BA2121; font-style: italic">        The list of phases that are used during whole cycle</span>
+<span style="color: #BA2121; font-style: italic">    :type Phases: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param PHASE_STANDSTILL:</span>
+<span style="color: #BA2121; font-style: italic">        Time period with required vehicle speed &lt; 1km/h</span>
+<span style="color: #BA2121; font-style: italic">    :type PHASE_STANDSTILL: integer</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialGearsFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second.</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialGearsFinal: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - InitialGearsFinal (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (5) average gear</span>
+<span style="color: #BA2121; font-style: italic">            In order to enable the assessment of the correctness of the calculation,</span>
+<span style="color: #BA2121; font-style: italic">            the average gear for v &gt;= 1 km/h, rounded to four places of decimal,</span>
+<span style="color: #BA2121; font-style: italic">            shall be calculated and recorded.</span>
+<span style="color: #BA2121; font-style: italic">        - PhaseSum (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (5) average gear</span>
+<span style="color: #BA2121; font-style: italic">            In order to enable the assessment of the correctness of the calculation,</span>
+<span style="color: #BA2121; font-style: italic">            the average gear for v &gt;= 1 km/h, rounded to four places of decimal,</span>
+<span style="color: #BA2121; font-style: italic">            shall be calculated and recorded.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     PhaseSum <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros(np<span style="color: #666666">.</span>shape(Phases))
     np<span style="color: #666666">.</span>put(

@@ -143,9 +143,11 @@
 <span style="color: #BA2121; font-style: italic">        The test mass of the vehicle.</span>
 <span style="color: #BA2121; font-style: italic">    :type VehicleTestMass: float</span>
 
-<span style="color: #BA2121; font-style: italic">    :return requiredPowersF:</span>
-<span style="color: #BA2121; font-style: italic">        The required powers for each time.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype requiredPowersF: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - requiredPowersF (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (3.1) P_required,j</span>
+<span style="color: #BA2121; font-style: italic">            The power required to overcome driving resistance and to accelerate</span>
+<span style="color: #BA2121; font-style: italic">            for each second j of the cycle trace.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     requiredPowers <span style="color: #666666">=</span> (
         f0 <span style="color: #666666">*</span> RequiredVehicleSpeeds

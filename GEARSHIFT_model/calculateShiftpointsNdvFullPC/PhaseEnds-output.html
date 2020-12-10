@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+        svg.on {
+            border: 4px solid #008CFF;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        .node.on g:first-of-type a:first-child path:first-child {
+            stroke: #008CFF;
+            stroke-width: 4;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        .node.on g:first-of-type a:first-child polygon:first-child {
+            stroke: #008CFF;
+            stroke-width: 4;
+            animation: blink-animation 1s linear;
+            -webkit-animation: blink-animation 1s linear;
+        }
+
+        @keyframes blink-animation {
+            to {
+                stroke-width: 0;
+                border-width: 0;
+            }
+        }
+
+        @-webkit-keyframes blink-animation {
+            to {
+                stroke-width: 0;
+                border-width: 0;
+            }
+        }
+
+        .controls {
+            background: #343a40;
+            width: 100%;
+        }
+
+        .controls button {
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #BBBBBB;
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+
+        .controls button:hover {
+            background-color: #555;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+        }
+
+        #iframe {
+            flex-grow: 1;
+        }
+
+        #index {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sh-ico {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-left: 8px;
+            padding-top: 3px;
+            vertical-align: middle;
+            content: "";
+            background: no-repeat center center;
+            background-size: 100% 100%;
+        }
+
+        .sh-ico-compress {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='none' height='24' stroke='%23BBBBBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3'/%3E%3C/svg%3E");
+        }
+
+        .sh-ico-expand {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='none' height='24' stroke='%23BBBBBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body onload="_onload()">
+<div id="index" style="display: none; height: 100%">
+    <div class="controls">
+        <button id="btnFullScreen" class="sh-ico sh-ico-expand"
+                style="display: none"
+                onclick="FullScreen()"
+                title="Enter/Exit Full Screen">
+        </button>
+        <button id="btnBack" onclick="onBack(event)" title="Go back">
+            &lt;
+        </button>
+        <button id="btnForward" onclick="onForward(event)" title="Go forward">
+            &gt;
+        </button>
+    </div>
+    <iframe id="iframe" allowfullscreen frameborder="0"></iframe>
+</div>
+<div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span>array([  <span style="color: #666666">12</span>,   <span style="color: #666666">34</span>,   <span style="color: #666666">48</span>,   <span style="color: #666666">49</span>,   <span style="color: #666666">54</span>,   <span style="color: #666666">56</span>,   <span style="color: #666666">78</span>,   <span style="color: #666666">98</span>,  <span style="color: #666666">138</span>,  <span style="color: #666666">149</span>,  <span style="color: #666666">155</span>,
+        <span style="color: #666666">169</span>,  <span style="color: #666666">175</span>,  <span style="color: #666666">179</span>,  <span style="color: #666666">194</span>,  <span style="color: #666666">197</span>,  <span style="color: #666666">229</span>,  <span style="color: #666666">230</span>,  <span style="color: #666666">252</span>,  <span style="color: #666666">253</span>,  <span style="color: #666666">256</span>,  <span style="color: #666666">270</span>,
+        <span style="color: #666666">280</span>,  <span style="color: #666666">290</span>,  <span style="color: #666666">295</span>,  <span style="color: #666666">298</span>,  <span style="color: #666666">299</span>,  <span style="color: #666666">321</span>,  <span style="color: #666666">322</span>,  <span style="color: #666666">324</span>,  <span style="color: #666666">325</span>,  <span style="color: #666666">336</span>,  <span style="color: #666666">350</span>,
+        <span style="color: #666666">353</span>,  <span style="color: #666666">354</span>,  <span style="color: #666666">356</span>,  <span style="color: #666666">363</span>,  <span style="color: #666666">364</span>,  <span style="color: #666666">370</span>,  <span style="color: #666666">384</span>,  <span style="color: #666666">392</span>,  <span style="color: #666666">399</span>,  <span style="color: #666666">400</span>,  <span style="color: #666666">409</span>,
+        <span style="color: #666666">417</span>,  <span style="color: #666666">421</span>,  <span style="color: #666666">429</span>,  <span style="color: #666666">443</span>,  <span style="color: #666666">512</span>,  <span style="color: #666666">517</span>,  <span style="color: #666666">518</span>,  <span style="color: #666666">529</span>,  <span style="color: #666666">533</span>,  <span style="color: #666666">540</span>,  <span style="color: #666666">541</span>,
+        <span style="color: #666666">554</span>,  <span style="color: #666666">555</span>,  <span style="color: #666666">560</span>,  <span style="color: #666666">562</span>,  <span style="color: #666666">566</span>,  <span style="color: #666666">600</span>,  <span style="color: #666666">615</span>,  <span style="color: #666666">622</span>,  <span style="color: #666666">626</span>,  <span style="color: #666666">628</span>,  <span style="color: #666666">636</span>,
+        <span style="color: #666666">637</span>,  <span style="color: #666666">640</span>,  <span style="color: #666666">648</span>,  <span style="color: #666666">664</span>,  <span style="color: #666666">676</span>,  <span style="color: #666666">683</span>,  <span style="color: #666666">684</span>,  <span style="color: #666666">694</span>,  <span style="color: #666666">701</span>,  <span style="color: #666666">702</span>,  <span style="color: #666666">708</span>,
+        <span style="color: #666666">712</span>,  <span style="color: #666666">716</span>,  <span style="color: #666666">717</span>,  <span style="color: #666666">743</span>,  <span style="color: #666666">744</span>,  <span style="color: #666666">749</span>,  <span style="color: #666666">750</span>,  <span style="color: #666666">763</span>,  <span style="color: #666666">787</span>,  <span style="color: #666666">788</span>,  <span style="color: #666666">791</span>,
+        <span style="color: #666666">800</span>,  <span style="color: #666666">807</span>,  <span style="color: #666666">818</span>,  <span style="color: #666666">876</span>,  <span style="color: #666666">886</span>,  <span style="color: #666666">887</span>,  <span style="color: #666666">896</span>,  <span style="color: #666666">897</span>,  <span style="color: #666666">907</span>,  <span style="color: #666666">916</span>,  <span style="color: #666666">917</span>,
+        <span style="color: #666666">918</span>,  <span style="color: #666666">925</span>,  <span style="color: #666666">942</span>,  <span style="color: #666666">943</span>,  <span style="color: #666666">948</span>,  <span style="color: #666666">957</span>,  <span style="color: #666666">966</span>,  <span style="color: #666666">985</span>, <span style="color: #666666">1027</span>, <span style="color: #666666">1047</span>, <span style="color: #666666">1061</span>,
+       <span style="color: #666666">1084</span>, <span style="color: #666666">1085</span>, <span style="color: #666666">1086</span>, <span style="color: #666666">1088</span>, <span style="color: #666666">1090</span>, <span style="color: #666666">1096</span>, <span style="color: #666666">1101</span>, <span style="color: #666666">1106</span>, <span style="color: #666666">1110</span>, <span style="color: #666666">1116</span>, <span style="color: #666666">1137</span>,
+       <span style="color: #666666">1145</span>, <span style="color: #666666">1149</span>, <span style="color: #666666">1151</span>, <span style="color: #666666">1244</span>, <span style="color: #666666">1247</span>, <span style="color: #666666">1248</span>, <span style="color: #666666">1251</span>, <span style="color: #666666">1267</span>, <span style="color: #666666">1268</span>, <span style="color: #666666">1269</span>, <span style="color: #666666">1270</span>,
+       <span style="color: #666666">1305</span>, <span style="color: #666666">1307</span>, <span style="color: #666666">1308</span>, <span style="color: #666666">1309</span>, <span style="color: #666666">1310</span>, <span style="color: #666666">1316</span>, <span style="color: #666666">1317</span>, <span style="color: #666666">1318</span>, <span style="color: #666666">1319</span>, <span style="color: #666666">1327</span>, <span style="color: #666666">1331</span>,
+       <span style="color: #666666">1337</span>, <span style="color: #666666">1339</span>, <span style="color: #666666">1346</span>, <span style="color: #666666">1347</span>, <span style="color: #666666">1362</span>, <span style="color: #666666">1366</span>, <span style="color: #666666">1370</span>, <span style="color: #666666">1372</span>, <span style="color: #666666">1381</span>, <span style="color: #666666">1393</span>, <span style="color: #666666">1394</span>,
+       <span style="color: #666666">1408</span>, <span style="color: #666666">1409</span>, <span style="color: #666666">1412</span>, <span style="color: #666666">1419</span>, <span style="color: #666666">1423</span>, <span style="color: #666666">1428</span>, <span style="color: #666666">1435</span>, <span style="color: #666666">1439</span>, <span style="color: #666666">1443</span>, <span style="color: #666666">1445</span>, <span style="color: #666666">1451</span>,
+       <span style="color: #666666">1478</span>, <span style="color: #666666">1521</span>, <span style="color: #666666">1532</span>, <span style="color: #666666">1576</span>, <span style="color: #666666">1606</span>, <span style="color: #666666">1608</span>, <span style="color: #666666">1623</span>, <span style="color: #666666">1633</span>, <span style="color: #666666">1635</span>, <span style="color: #666666">1641</span>, <span style="color: #666666">1671</span>,
+       <span style="color: #666666">1672</span>, <span style="color: #666666">1673</span>, <span style="color: #666666">1675</span>, <span style="color: #666666">1680</span>, <span style="color: #666666">1682</span>, <span style="color: #666666">1689</span>, <span style="color: #666666">1690</span>, <span style="color: #666666">1695</span>, <span style="color: #666666">1696</span>, <span style="color: #666666">1697</span>, <span style="color: #666666">1698</span>,
+       <span style="color: #666666">1708</span>, <span style="color: #666666">1710</span>, <span style="color: #666666">1723</span>, <span style="color: #666666">1794</span>, <span style="color: #666666">1800</span>], dtype<span style="color: #666666">=</span>int64)
+</pre></div>
+</div>
+
+<script>
+    var id, hist = {i: -1, list: []}, isFull;
+
+    function FullScreen() {
+        var el = document.getElementById("btnFullScreen");
+        if (isFull) {
+            closeFullscreen();
+            isFull = false;
+            el.setAttribute('class', el.getAttribute('class').replace("sh-ico-compress", "sh-ico-expand"));
+        } else {
+            openFullscreen();
+            isFull = true;
+            el.setAttribute('class', el.getAttribute('class').replace("sh-ico-expand", "sh-ico-compress"));
+        }
+    }
+
+    function getURLParam(name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        } else {
+            return decodeURI(results[1]) || 0;
+        }
+    }
+
+    function setURLParam(key, value) {
+        let uri = window.location.href,
+            re = new RegExp("([?&])" + key + "=.*?(&|$)", "i"),
+            separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + encodeURI(value) + '$2');
+        } else {
+            return uri + separator + key + "=" + encodeURI(value);
+        }
+    }
+
+    function iframeLoad(e) {
+        e.preventDefault();
+        document.getElementById("iframe").contentWindow.postMessage({
+            id: id,
+            action: 'id'
+        }, '*');
+    }
+
+    function onBack(e) {
+        e.preventDefault();
+        if (hist.i > 0) {
+            hist.i--;
+            setIframe(hist.list[hist.i])
+        }
+    }
+
+    function onForward(e) {
+        e.preventDefault();
+        if (hist.i + 1 < hist.list.length) {
+            hist.i++;
+            setIframe(hist.list[hist.i])
+        }
+    }
+
+    function setIframe(src) {
+        document.getElementById("iframe").src = src
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    }
+
+    function isFullscreenSupported() {
+        let elem = document.body;
+        return elem.requestFullscreen || elem.mozRequestFullScreen || elem.webkitRequestFullscreen || elem.msRequestFullscreen
+    }
+
+    function openFullscreen() {
+        let elem = document.body;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen()
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen()
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen()
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen()
+        }
+    }
+
+    function _onload() {
+        if (getURLParam("controls") === "true") {
+            document.getElementById("iframe").onload = iframeLoad;
+            document.getElementById("index").style.display = "flex";
+            if (isFullscreenSupported())
+                document.getElementById("btnFullScreen").style.display = "inline-block";
+            id = Date.now();
+            setIframe(setURLParam("controls", "false"));
+            window.addEventListener('message', function (event) {
+                if (event.data.id === id) {
+                    if (event.data.action === 'url') {
+                        let href = event.data.url;
+                        if (hist.list[hist.i] !== href) {
+                            hist.i++;
+                            hist.list = hist.list.slice(0, hist.i);
+                            hist.list.push(href);
+                        }
+                        if (hist.i > 0) {
+                            document.getElementById("btnBack").style.opacity = "1"
+                        } else {
+                            document.getElementById("btnBack").style.opacity = "0.5"
+                        }
+                        if (hist.i + 1 < hist.list.length) {
+                            document.getElementById("btnForward").style.opacity = "1"
+                        } else {
+                            document.getElementById("btnForward").style.opacity = "0.5"
+                        }
+                    }
+                }
+            });
+        } else {
+            refreshIntervalId = setInterval(sendUrl, 100);
+            setTimeout(function () {
+                clearInterval(refreshIntervalId)
+            }, 30000);
+            document.getElementById("content").style.display = "block";
+            var el = document.getElementById(getURLParam("id") || 'graph0');
+            if (el)
+                if (el.getAttribute('class').indexOf('node') !== -1) {
+                    var bound = el.getBoundingClientRect();
+                    window.scrollTo((bound.left + bound.right) / 2 - document.body.offsetWidth / 2, (bound.top + bound.bottom) / 2 - document.body.offsetHeight / 2);
+                    el.setAttribute('class', el.getAttribute('class') + " on");
+                } else if (el.getAttribute('class').indexOf('graph') !== -1) {
+                    el.parentNode.setAttribute('class', el.parentNode.getAttribute('class') + " on");
+                }
+        }
+    }
+
+    function getParentOrigin() {
+        try {
+            return parent.window.origin || "null";
+        } catch (exception) {
+            return "null"
+        }
+    }
+
+    function sendUrl() {
+        if (parent_iframe_id !== null && window.location.href !== url) {
+            url = window.location.href;
+            parent.postMessage({
+                id: parent_iframe_id,
+                url: url,
+                action: 'url'
+            }, '*');
+            clearInterval(refreshIntervalId);
+        }
+    }
+
+    var parent_iframe_id = null, url = null, refreshIntervalId;
+    window.addEventListener('message', function (event) {
+        var origin = event.origin === 'file:' ? 'null' : (event.origin || 'null');
+        if (origin === getParentOrigin())
+            if (parent_iframe_id === null && event.data.action === 'id') {
+                parent_iframe_id = event.data.id
+            }
+    });
+</script>
+</body>
+</html>

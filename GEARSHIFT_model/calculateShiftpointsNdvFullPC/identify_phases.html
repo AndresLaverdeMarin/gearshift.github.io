@@ -141,67 +141,39 @@
 <span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
 <span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return Phases:</span>
-<span style="color: #BA2121; font-style: italic">        The list of phases that are used during whole cycle</span>
-<span style="color: #BA2121; font-style: italic">    :rtype Phases: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InDecelerationToStandstill:</span>
-<span style="color: #BA2121; font-style: italic">        The array that contains the seconds from deceleration to standstill as a True</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InDecelerationToStandstill: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PhaseValues:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the points of changes phases</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PhaseValues: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InStandStill:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the points that are in standstill phase as a True</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InStandStill: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PhaseStarts:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the points that are start point from a phase</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PhaseStarts: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PhaseEnds:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the points that are end point from a phase</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PhaseEnds: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PHASE_ACCELERATION_FROM_STANDSTILL:</span>
-<span style="color: #BA2121; font-style: italic">        Acceleration phase following a standstill phase</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PHASE_ACCELERATION_FROM_STANDSTILL: integer</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PHASE_ACCELERATION:</span>
-<span style="color: #BA2121; font-style: italic">        Acceleration phase</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PHASE_ACCELERATION: integer</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InAcceleration:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the points that are in acceleration phase as a True</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InAcceleration: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InConstantSpeed:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the points that are in constant speed phase as a True</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InConstantSpeed: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InAccelerationAnyDuration:</span>
-<span style="color: #BA2121; font-style: italic">         some gear corrections ignore the duration of acceleration phases</span>
-<span style="color: #BA2121; font-style: italic">         so save acceleration phases with any duration here</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InAccelerationAnyDuration: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PHASE_DECELERATION:</span>
-<span style="color: #BA2121; font-style: italic">        time period of more than 2 seconds with required vehicle</span>
-<span style="color: #BA2121; font-style: italic"> 		speed &gt;= 1km/h and monotonically decreasing</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PHASE_DECELERATION: integer</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PHASE_DECELERATION_TO_STANDSTILL:</span>
-<span style="color: #BA2121; font-style: italic">        DECELERATION phase preceding a STANDSTILL phase</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PHASE_DECELERATION_TO_STANDSTILL: integer</span>
-
-<span style="color: #BA2121; font-style: italic">    :return InDeceleration:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the points that are in deceleration phase as a True</span>
-<span style="color: #BA2121; font-style: italic">    :rtype InDeceleration: boolean array</span>
-
-<span style="color: #BA2121; font-style: italic">    :return PHASE_STANDSTILL:</span>
-<span style="color: #BA2121; font-style: italic">        Time period with required vehicle speed &lt; 1km/h</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PHASE_STANDSTILL: integer</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - Phases (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The list of phases that are used during whole cycle</span>
+<span style="color: #BA2121; font-style: italic">        - InDecelerationToStandstill (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The array that contains the seconds from deceleration to standstill as a True</span>
+<span style="color: #BA2121; font-style: italic">        - PhaseValues (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the points of changes phases</span>
+<span style="color: #BA2121; font-style: italic">        - InStandStill (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the points that are in standstill phase as a True</span>
+<span style="color: #BA2121; font-style: italic">        -  PhaseStarts (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the points that are start point from a phase</span>
+<span style="color: #BA2121; font-style: italic">        - PhaseEnds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the points that are end point from a phase</span>
+<span style="color: #BA2121; font-style: italic">        - PHASE_ACCELERATION_FROM_STANDSTILL (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            Acceleration phase following a standstill phase</span>
+<span style="color: #BA2121; font-style: italic">        - PHASE_ACCELERATION (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            Acceleration phase</span>
+<span style="color: #BA2121; font-style: italic">        - InAcceleration (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the points that are in acceleration phase as a True</span>
+<span style="color: #BA2121; font-style: italic">        - InConstantSpeed (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the points that are in constant speed phase as a True</span>
+<span style="color: #BA2121; font-style: italic">        - InAccelerationAnyDuration (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Some gear corrections ignore the duration of acceleration phases so save acceleration phases</span>
+<span style="color: #BA2121; font-style: italic">            with any duration here.</span>
+<span style="color: #BA2121; font-style: italic">        - PHASE_DECELERATION (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            Time period of more than 2 seconds with required vehicle:</span>
+<span style="color: #BA2121; font-style: italic">                speed &gt;= 1km/h and monotonically decreasing</span>
+<span style="color: #BA2121; font-style: italic">        - PHASE_DECELERATION_TO_STANDSTILL (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            DECELERATION phase preceding a STANDSTILL phase</span>
+<span style="color: #BA2121; font-style: italic">        -  InDeceleration (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the points that are in deceleration phase as a True</span>
+<span style="color: #BA2121; font-style: italic">        - PHASE_STANDSTILL (:py:class:`int`):</span>
+<span style="color: #BA2121; font-style: italic">            Time period with required vehicle speed &lt; 1km/h</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     PHASE_TOO_SHORT <span style="color: #666666">=</span> <span style="color: #666666">0</span>
     PHASE_STANDSTILL <span style="color: #666666">=</span> <span style="color: #666666">1</span>

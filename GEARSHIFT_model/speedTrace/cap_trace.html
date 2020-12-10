@@ -124,10 +124,11 @@
 <span style="color: #BA2121; font-style: italic">        able to reach the maximum speed of that trace.</span>
 <span style="color: #BA2121; font-style: italic">    :type CappedSpeed: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return capped, cappedVehicleSpeeds:</span>
-<span style="color: #BA2121; font-style: italic">        The boolean array that show the vehicle speeds capped and the vehicle speeds capped according to</span>
-<span style="color: #BA2121; font-style: italic">        the maximum value available</span>
-<span style="color: #BA2121; font-style: italic">    :rtype cappedVehicleSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - capped (:py:class:`boolean numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The boolean array that show the vehicle speeds capped</span>
+<span style="color: #BA2121; font-style: italic">        - cappedVehicleSpeeds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            The vehicle speeds capped according to the maximum value available</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     cappedVehicleSpeeds <span style="color: #666666">=</span> np<span style="color: #666666">.</span>copy(downscaledVehicleSpeeds)
 

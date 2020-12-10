@@ -123,7 +123,6 @@
 ):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    Load full power curve</span>
-<span style="color: #BA2121; font-style: italic">    This function split the different components of full power curve in a independent array</span>
 
 <span style="color: #BA2121; font-style: italic">    :param FullPowerCurve:</span>
 <span style="color: #BA2121; font-style: italic">        Annex 2 (2h) and (3.4) n ==&gt; P_wot(n), ASM</span>
@@ -148,21 +147,17 @@
 <span style="color: #BA2121; font-style: italic">        The engine speed at which ASM approching zero ends.</span>
 <span style="color: #BA2121; font-style: italic">    :type EndEngineSpeed: array</span>
 
-<span style="color: #BA2121; font-style: italic">    :result PowerCurveEngineSpeeds:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the power curve engine speeds</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PowerCurveEngineSpeeds: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - PowerCurveEngineSpeeds (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the power curve engine speeds</span>
+<span style="color: #BA2121; font-style: italic">        - PowerCurvePowers (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the power curve powers</span>
+<span style="color: #BA2121; font-style: italic">        - PowerCurveASM (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Contains the power curve additional save margin</span>
+<span style="color: #BA2121; font-style: italic">        - DefinedPowerCurveAdditionalSafetyMargins (:py:class:`bool`):</span>
+<span style="color: #BA2121; font-style: italic">            Boolean that define if the additional save margins are present</span>
 
-<span style="color: #BA2121; font-style: italic">    :result PowerCurvePowers:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the power curve powers</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PowerCurvePowers: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :result PowerCurveASM:</span>
-<span style="color: #BA2121; font-style: italic">        Contains the power curve additional save margin</span>
-<span style="color: #BA2121; font-style: italic">    :rtype PowerCurveASM: array</span>
-
-<span style="color: #BA2121; font-style: italic">    :result DefinedPowerCurveAdditionalSafetyMargins:</span>
-<span style="color: #BA2121; font-style: italic">        Boolean that define if the additional save margins are present</span>
-<span style="color: #BA2121; font-style: italic">    :rtype DefinedPowerCurveAdditionalSafetyMargins: boolean</span>
+<span style="color: #BA2121; font-style: italic">    .. note:: This function split the different components of full power curve in a independent array</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #008000; font-weight: bold">if</span> np<span style="color: #666666">.</span>shape(FullPowerCurve)[<span style="color: #666666">1</span>] <span style="color: #666666">==</span> <span style="color: #666666">2</span>:
         ASM <span style="color: #666666">=</span> []

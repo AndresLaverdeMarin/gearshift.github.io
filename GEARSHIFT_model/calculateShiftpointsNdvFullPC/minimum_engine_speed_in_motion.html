@@ -136,11 +136,6 @@
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    Define minimum engine speeds when vehicle is in motion (2k)</span>
 
-<span style="color: #BA2121; font-style: italic">    .. note::</span>
-<span style="color: #BA2121; font-style: italic">    The calculation of minimum engine speeds for the second gear does</span>
-<span style="color: #BA2121; font-style: italic">    not fully confirm to the latest legislation text, but rather reflects</span>
-<span style="color: #BA2121; font-style: italic">    the previous revision of it until (2ka) is clarified.</span>
-
 <span style="color: #BA2121; font-style: italic">    :param IdlingEngineSpeed:</span>
 <span style="color: #BA2121; font-style: italic">        Annex 2 (2c) n_idle. The idling speed.</span>
 <span style="color: #BA2121; font-style: italic">    :type IdlingEngineSpeed: float</span>
@@ -197,33 +192,36 @@
 <span style="color: #BA2121; font-style: italic">        The array that contains the seconds from deceleration to standstill as a True</span>
 <span style="color: #BA2121; font-style: italic">    :type InDecelerationToStandstill: boolean array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return MinDrivesI:</span>
-<span style="color: #BA2121; font-style: italic">        Minimum engine speeds when vehicle is in motion</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MinDrivesI: array</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - MinDrivesI (:py:class:`numpy.array`):</span>
+<span style="color: #BA2121; font-style: italic">            Minimum engine speeds when vehicle is in motion</span>
+<span style="color: #BA2121; font-style: italic">        - CalculatedMinDriveEngineSpeedGreater2nd (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            The minimum drive engine speed grater than second</span>
+<span style="color: #BA2121; font-style: italic">        - MinDrive1stTo2nd (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2ka) n_min_drive = 1.15 x n_idle for n_gear:1-&gt;2</span>
+<span style="color: #BA2121; font-style: italic">            The minimum engine speed for transitions from first to second gear.</span>
+<span style="color: #BA2121; font-style: italic">            This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">        - MinDrive1st (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2k) n_min_drive = n_idle for n_gear:1</span>
+<span style="color: #BA2121; font-style: italic">            The minimum engine speed when the vehicle is in motion.</span>
+<span style="color: #BA2121; font-style: italic">            This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">        - MinDrive2ndDecel (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2kb) n_min_drive = n_idle for n_gear:2</span>
+<span style="color: #BA2121; font-style: italic">            The minimum engine speed for decelerations to standstill in second gear.</span>
+<span style="color: #BA2121; font-style: italic">            This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">        - MinDrive2nd (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2kc) n_min_drive = 0.9 x n_idle for n_gear:2</span>
+<span style="color: #BA2121; font-style: italic">            The minimum engine speed for all other driving conditions in second gear.</span>
+<span style="color: #BA2121; font-style: italic">            This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">        - MinDriveGreater2nd (:py:class:`float`):</span>
+<span style="color: #BA2121; font-style: italic">            Annex 2 (2k) n_min_drive = n_idle + 0.125 × ( n_rated - n_idle ) for n_gear:3..</span>
+<span style="color: #BA2121; font-style: italic">            This value shall be referred to as n_min_drive_set.</span>
+<span style="color: #BA2121; font-style: italic">            The minimum engine speed for all driving conditions in gears greater than 2.</span>
+<span style="color: #BA2121; font-style: italic">            This is the maximum of calculated value and input parameter value.</span>
 
-<span style="color: #BA2121; font-style: italic">    :return CalculatedMinDriveEngineSpeedGreater2nd:</span>
-<span style="color: #BA2121; font-style: italic">        The minimum drive engine speed grater than second</span>
-<span style="color: #BA2121; font-style: italic">    :rtype CalculatedMinDriveEngineSpeedGreater2nd: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return MinDrive1stTo2nd:</span>
-<span style="color: #BA2121; font-style: italic">        The minimum drive first to second</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MinDrive1stTo2nd: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return MinDrive1st:</span>
-<span style="color: #BA2121; font-style: italic">        The minimum drive first</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MinDrive1st: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return MinDrive2ndDecel:</span>
-<span style="color: #BA2121; font-style: italic">        The minimum drive second during deceleration phase</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MinDrive2ndDecel: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return MinDrive2nd:</span>
-<span style="color: #BA2121; font-style: italic">        The minimum drive second</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MinDrive2nd: float</span>
-
-<span style="color: #BA2121; font-style: italic">    :return MinDriveGreater2nd:</span>
-<span style="color: #BA2121; font-style: italic">        The minimum drive greater than second</span>
-<span style="color: #BA2121; font-style: italic">    :rtype MinDriveGreater2nd: float</span>
+<span style="color: #BA2121; font-style: italic">    .. note:: The calculation of minimum engine speeds for the second gear does</span>
+<span style="color: #BA2121; font-style: italic">        not fully confirm to the latest legislation text, but rather reflects</span>
+<span style="color: #BA2121; font-style: italic">        the previous revision of it until (2ka) is clarified.</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     CalculatedMinDriveEngineSpeed1st <span style="color: #666666">=</span> IdlingEngineSpeed
     CalculatedMinDriveEngineSpeed1stTo2nd <span style="color: #666666">=</span> np<span style="color: #666666">.</span>round(<span style="color: #666666">1.15</span> <span style="color: #666666">*</span> IdlingEngineSpeed)

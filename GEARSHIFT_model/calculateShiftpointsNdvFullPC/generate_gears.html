@@ -109,7 +109,7 @@
     </div>
     <iframe id="iframe" allowfullscreen frameborder="0"></iframe>
 </div>
-<div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">&quot;shift_poits&quot;</span>])
+<div id="content" style="display: none"> <div class="highlight" style="background: transparent"><pre style="line-height: 125%; margin: 0;"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">&quot;shift_points&quot;</span>])
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">generate_gears</span>(
     TraceTimes,
     GearSequenceStarts,
@@ -141,6 +141,174 @@
     CorrectionsCells,
     ChecksumVxGear,
 ):
+    <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">    Assign outputs in the final dictionary</span>
+
+<span style="color: #BA2121; font-style: italic">    :param TraceTimes:</span>
+<span style="color: #BA2121; font-style: italic">        Times for each vehicle speed required re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">    :type TraceTimes: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param GearSequenceStarts:</span>
+<span style="color: #BA2121; font-style: italic">        Array that contains the position of the gear sequence start for the different</span>
+<span style="color: #BA2121; font-style: italic">        gears.</span>
+<span style="color: #BA2121; font-style: italic">        .. note::</span>
+<span style="color: #BA2121; font-style: italic">        A clutch disengagement and a gear change cannot be indicated at the same time</span>
+<span style="color: #BA2121; font-style: italic">        and the clutch disengagement will therefore be indicated one second earlier.</span>
+<span style="color: #BA2121; font-style: italic">    :type GearSequenceStarts: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param GearNames:</span>
+<span style="color: #BA2121; font-style: italic">        The name of gear to used by each gear sequence starts.</span>
+<span style="color: #BA2121; font-style: italic">    :type GearNames: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param AverageGear:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (5) average gear</span>
+<span style="color: #BA2121; font-style: italic">        In order to enable the assessment of the correctness of the calculation,</span>
+<span style="color: #BA2121; font-style: italic">        the average gear for v &gt;= 1 km/h, rounded to four places of decimal,</span>
+<span style="color: #BA2121; font-style: italic">        shall be calculated and recorded.</span>
+<span style="color: #BA2121; font-style: italic">    :type AverageGear: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param Max95EngineSpeedFinal:</span>
+<span style="color: #BA2121; font-style: italic">         Annex 2 (2g) n_max1 = n_95_high adjusted</span>
+<span style="color: #BA2121; font-style: italic">         If n_95_high cannot be determined because the engine speed is limited to</span>
+<span style="color: #BA2121; font-style: italic">         a lower value n_lim for all gears and the corresponding full load power</span>
+<span style="color: #BA2121; font-style: italic">         is higher than 95 per cent of rated power, n_95_high shall be set to n_lim.</span>
+<span style="color: #BA2121; font-style: italic">    :type Max95EngineSpeedFinal: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param RequiredVehicleSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        The vehicle speed required for the whole cycle re-sampled in 1Hz</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredVehicleSpeeds: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param requiredPowersF:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.1) P_required,j</span>
+<span style="color: #BA2121; font-style: italic">        The power required to overcome driving resistance and to accelerate</span>
+<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">    :type requiredPowersF: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param RequiredEngineSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.2) n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        The engine speeds required</span>
+<span style="color: #BA2121; font-style: italic">        for each gear i from 1 to ng and</span>
+<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">        Note that this are the uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        ie without the increments required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">    :type RequiredEngineSpeeds: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param PossibleGearsByEngineSpeed:</span>
+<span style="color: #BA2121; font-style: italic">        The possible gear that can be used for each second.</span>
+<span style="color: #BA2121; font-style: italic">    :type PossibleGearsByEngineSpeed: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param AvailablePowersFinal:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.4) P_available_i,j</span>
+<span style="color: #BA2121; font-style: italic">        The power available for each gear i from 1 to ng and for each second j</span>
+<span style="color: #BA2121; font-style: italic">        of the cycle trace, after check vehicle speed.</span>
+<span style="color: #BA2121; font-style: italic">        Note that this power values are determined from uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        i.e. without the engine speed increments required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">    :type AvailablePowersFinal: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialRequiredEngineSpeeds:</span>
+<span style="color: #BA2121; font-style: italic">        The initial engine speeds required for each gear i from 1 to ng and</span>
+<span style="color: #BA2121; font-style: italic">        for each second j of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialRequiredEngineSpeeds: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialAvailablePowers:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (3.4) P_available_i,j (initials)</span>
+<span style="color: #BA2121; font-style: italic">        The power available for each gear i from 1 to ng and for each second j</span>
+<span style="color: #BA2121; font-style: italic">        of the cycle trace.</span>
+<span style="color: #BA2121; font-style: italic">        Note that this power values are determined from uncorrected values n_i,j</span>
+<span style="color: #BA2121; font-style: italic">        i.e. without the engine speed increments required by Annex 2 (3.3)</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialAvailablePowers: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param FullPowerCurve:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2h) and (3.4) n ==&gt; P_wot(n), ASM</span>
+<span style="color: #BA2121; font-style: italic">        The full load power curve over the engine speed range.</span>
+<span style="color: #BA2121; font-style: italic">    :type FullPowerCurve: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param EngineSpeedAtGearAtMaxRequiredSpeed:</span>
+<span style="color: #BA2121; font-style: italic">        The engine speed at gear maximum required speed</span>
+<span style="color: #BA2121; font-style: italic">    :type EngineSpeedAtGearAtMaxRequiredSpeed: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param EngineSpeedAtGearAtMaxVehicleSpeed:</span>
+<span style="color: #BA2121; font-style: italic">        The engine speed at gear at maximum vehicle speed</span>
+<span style="color: #BA2121; font-style: italic">    :type EngineSpeedAtGearAtMaxVehicleSpeed: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param MaxEngineSpeed:</span>
+<span style="color: #BA2121; font-style: italic">        The maximum engine speed</span>
+<span style="color: #BA2121; font-style: italic">    :type MaxEngineSpeed: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param MaxVehicleSpeedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2g, 2i) v_max,vehicle</span>
+<span style="color: #BA2121; font-style: italic">        The maximum vehicle speed reachable</span>
+<span style="color: #BA2121; font-style: italic">        using the gear in which the maximum vehicle speed can be reached.</span>
+<span style="color: #BA2121; font-style: italic">    :type MaxVehicleSpeedFinal: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param GearAtMaxVehicleSpeedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2i) ng_vmax</span>
+<span style="color: #BA2121; font-style: italic">        The gear in which the maximum vehicle speed is reached.</span>
+<span style="color: #BA2121; font-style: italic">    :type GearAtMaxVehicleSpeedFinal: integer</span>
+
+<span style="color: #BA2121; font-style: italic">    :param MinDrive1st:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2k) n_min_drive = n_idle for n_gear:1</span>
+<span style="color: #BA2121; font-style: italic">        The minimum engine speed when the vehicle is in motion.</span>
+<span style="color: #BA2121; font-style: italic">        This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">    :type MinDrive1st: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param MinDrive1stTo2nd:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2ka) n_min_drive = 1.15 x n_idle for n_gear:1-&gt;2</span>
+<span style="color: #BA2121; font-style: italic">        The minimum engine speed for transitions from first to second gear.</span>
+<span style="color: #BA2121; font-style: italic">        This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">    :type MinDrive1stTo2nd: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param MinDrive2ndDecel:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2kb) n_min_drive = n_idle for n_gear:2</span>
+<span style="color: #BA2121; font-style: italic">        The minimum engine speed for decelerations to standstill in second gear.</span>
+<span style="color: #BA2121; font-style: italic">        This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">    :type MinDrive2ndDecel: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param MinDrive2nd:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2kc) n_min_drive = 0.9 x n_idle for n_gear:2</span>
+<span style="color: #BA2121; font-style: italic">        The minimum engine speed for all other driving conditions in second gear.</span>
+<span style="color: #BA2121; font-style: italic">        This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">    :type MinDrive2nd: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param MinDriveGreater2nd:</span>
+<span style="color: #BA2121; font-style: italic">        Annex 2 (2k) n_min_drive = n_idle + 0.125 × ( n_rated - n_idle ) for n_gear:3..</span>
+<span style="color: #BA2121; font-style: italic">        This value shall be referred to as n_min_drive_set.</span>
+<span style="color: #BA2121; font-style: italic">        The minimum engine speed for all driving conditions in gears greater than 2.</span>
+<span style="color: #BA2121; font-style: italic">        This is the maximum of calculated value and input parameter value.</span>
+<span style="color: #BA2121; font-style: italic">    :type MinDriveGreater2nd: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param InitialGearsFinalAfterClutch:</span>
+<span style="color: #BA2121; font-style: italic">        The initial gears after apply corrections calculated by each second and the</span>
+<span style="color: #BA2121; font-style: italic">        interleave clutch.</span>
+<span style="color: #BA2121; font-style: italic">    :type InitialGearsFinalAfterClutch: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchDisengagedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch disengaged by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchDisengagedFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchUndefinedFinal:</span>
+<span style="color: #BA2121; font-style: italic">        The clutch undefined by each second after apply the interleave clutch</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchUndefinedFinal: boolean array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ClutchHST:</span>
+<span style="color: #BA2121; font-style: italic">        Array of clutch state names as used by the Heinz Steven Tool (HST).</span>
+<span style="color: #BA2121; font-style: italic">    :type ClutchHST: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param CorrectionsCells:</span>
+<span style="color: #BA2121; font-style: italic">        Array of gear correction strings for debugging. This contains a historic</span>
+<span style="color: #BA2121; font-style: italic">        transformation of each gear during all execution and the transformation</span>
+<span style="color: #BA2121; font-style: italic">        applied.</span>
+<span style="color: #BA2121; font-style: italic">    :type CorrectionsCells: array</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ChecksumVxGear:</span>
+<span style="color: #BA2121; font-style: italic">        Checksum of v * gear for v &gt;= 1 km/h rounded to four places of decimal.</span>
+<span style="color: #BA2121; font-style: italic">    :type ChecksumVxGear: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - shift_points (:py:class:`dict`):</span>
+<span style="color: #BA2121; font-style: italic">            Dictionary that contains the all input parameters with the expected</span>
+<span style="color: #BA2121; font-style: italic">            output format.</span>
+<span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     <span style="color: #408080; font-style: italic"># This is a test parameter that can be included in the inputs in the future</span>
     ReturnAdjustedEngSpeedsAndAvlPowers <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">True</span>
 
@@ -153,7 +321,7 @@
         RequiredEngineSpeedsOutput <span style="color: #666666">=</span> np<span style="color: #666666">.</span>round(InitialRequiredEngineSpeeds, <span style="color: #666666">4</span>)
         AvailablePowersOutput <span style="color: #666666">=</span> np<span style="color: #666666">.</span>round(InitialAvailablePowers, <span style="color: #666666">4</span>)
 
-    shift_poits <span style="color: #666666">=</span> {
+    shift_points <span style="color: #666666">=</span> {
         <span style="color: #BA2121">&quot;CalculatedGearsOutput&quot;</span>: np<span style="color: #666666">.</span>vstack(
             (TraceTimes[GearSequenceStarts], GearNames)
         )<span style="color: #666666">.</span>T,
@@ -184,7 +352,7 @@
         <span style="color: #BA2121">&quot;ChecksumVxGearOutput&quot;</span>: np<span style="color: #666666">.</span>round(ChecksumVxGear <span style="color: #666666">*</span> <span style="color: #666666">10000</span>) <span style="color: #666666">/</span> <span style="color: #666666">10000</span>,
     }
 
-    <span style="color: #008000; font-weight: bold">return</span> shift_poits
+    <span style="color: #008000; font-weight: bold">return</span> shift_points
 </pre></div>
 </div>
 

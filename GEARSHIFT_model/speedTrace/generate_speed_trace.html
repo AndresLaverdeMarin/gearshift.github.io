@@ -134,13 +134,13 @@
 <span style="color: #BA2121; font-style: italic">        The downscaling factor for the cycle</span>
 <span style="color: #BA2121; font-style: italic">    :type downscalingFactor: float</span>
 
-<span style="color: #BA2121; font-style: italic">    :return: requiredToRatedPowerRatio</span>
+<span style="color: #BA2121; font-style: italic">    :param requiredToRatedPowerRatio:</span>
 <span style="color: #BA2121; font-style: italic">        The required rated power ratio after apply the downscaling factor.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype: float</span>
+<span style="color: #BA2121; font-style: italic">    :type requiredToRatedPowerRatio: float</span>
 
-<span style="color: #BA2121; font-style: italic">    :return: requiredToRatedPowerRatio</span>
+<span style="color: #BA2121; font-style: italic">    :param requiredToRatedPowerRatio:</span>
 <span style="color: #BA2121; font-style: italic">        The required rated power ratio after apply the downscaling factors.</span>
-<span style="color: #BA2121; font-style: italic">    :rtype: float</span>
+<span style="color: #BA2121; font-style: italic">    :type requiredToRatedPowerRatio: float</span>
 
 <span style="color: #BA2121; font-style: italic">    :param calculatedDownscalingFactors:</span>
 <span style="color: #BA2121; font-style: italic">            The downscaling factor for the cycle</span>
@@ -186,9 +186,9 @@
 <span style="color: #BA2121; font-style: italic">        The boolean array that shows the vehicle speeds capped and compensated</span>
 <span style="color: #BA2121; font-style: italic">    :param compensated:boolean array</span>
 
-<span style="color: #BA2121; font-style: italic">    :return speed_trace:</span>
-<span style="color: #BA2121; font-style: italic">        The dictionary that contains the all final values of speed trace</span>
-<span style="color: #BA2121; font-style: italic">    :type speed_trace: dict</span>
+<span style="color: #BA2121; font-style: italic">    :returns:</span>
+<span style="color: #BA2121; font-style: italic">        - speed_trace (:py:class:`dict`):</span>
+<span style="color: #BA2121; font-style: italic">            The dictionary that contains the all final values of speed trace</span>
 <span style="color: #BA2121; font-style: italic">    &quot;&quot;&quot;</span>
     calculatedDownscalingFactor <span style="color: #666666">=</span> downscalingFactor
     <span style="color: #008000; font-weight: bold">if</span> calculatedDownscalingFactor <span style="color: #666666">&lt;=</span> <span style="color: #666666">0.01</span>:
